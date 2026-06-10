@@ -1,0 +1,9 @@
+{
+    "name": "Chout - All in One",
+    "version": "1.0.0",
+    "download_url": "https://github.com/ErrorMouse/chout-all-in-one/archive/refs/tags/1.0.0.zip",
+    "sections": {
+        "description": "A single control panel for enabling small website features only when you need them.",
+        "changelog": "Initial release."
+    }
+}

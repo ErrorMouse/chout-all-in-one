@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chout - All in One 1.0.0\n"
+"Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
+"POT-Creation-Date: 2026-06-10 00:00+0700\n"
+"PO-Revision-Date: 2026-06-10 20:14+0700\n"
+"Last-Translator: Chout <https://profiles.wordpress.org/nmtnguyen56/>\n"
+"Language-Team: Vietnamese\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
+"X-Domain: chout-all-in-one\n"
+
+msgid "Chout - All in One"
+msgstr "Chout - All in One"
+
+msgid "A single control panel for enabling small website features only when you need them."
+msgstr "Một bảng điều khiển duy nhất để bật các tính năng nhỏ cho website khi bạn cần."
+
+msgid "Chout"
+msgstr "Chout"
+
+msgid "This post was published at <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> and belongs to <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
+msgstr "Bài viết này được đăng tại <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> và thuộc về <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
+
+msgid "Admin Style"
+msgstr "Admin Style"
+
+msgid "Refine the admin and editing interfaces to make content easier to read and manage."
+msgstr "Tinh chỉnh giao diện quản trị và soạn thảo để nội dung dễ đọc và dễ quản lý hơn."
+
+msgid "Add Signature to RSS"
+msgstr "Add Signature to RSS"
+
+msgid "Add a source identifier to content distributed via RSS."
+msgstr "Thêm thông tin nhận diện nguồn cho nội dung được phân phối qua RSS."
+
+msgid "Block WP-Admin Area from Non-Administrators"
+msgstr "Block WP-Admin Area from Non-Administrators"
+
+msgid "Keep the admin area limited to users with website management privileges."
+msgstr "Giới hạn khu vực quản trị cho người dùng có quyền quản lý website."
+
+msgid "Disable Search & Redirect to Home"
+msgstr "Disable Search & Redirect to Home"
+
+msgid "Disable site search and redirect visitors to the homepage when they attempt a search."
+msgstr "Tắt tìm kiếm trên website và chuyển khách truy cập về trang chủ khi họ thử tìm kiếm."
+
+msgid "Display Dashicons"
+msgstr "Display Dashicons"
+
+msgid "Display familiar WordPress icons on the public-facing site."
+msgstr "Hiển thị các biểu tượng WordPress quen thuộc ở giao diện ngoài website."
+
+msgid "Keywords Everywhere"
+msgstr "Keywords Everywhere"
+
+msgid "Automatically add relevant keywords to help content be easier to recognize."
+msgstr "Tự động thêm các từ khóa liên quan để nội dung dễ được nhận diện hơn."
+
+msgid "Redirect to Homepage Upon Logout"
+msgstr "Redirect to Homepage Upon Logout"
+
+msgid "Return users to the homepage after they log out."
+msgstr "Đưa người dùng trở về trang chủ sau khi họ đăng xuất."
+
+msgid "Scroll Add Action"
+msgstr "Scroll Add Action"
+
+msgid "Create a state-change effect for content as visitors scroll."
+msgstr "Tạo hiệu ứng thay đổi trạng thái cho nội dung khi khách truy cập cuộn trang."
+
+msgid "Snow Effect"
+msgstr "Snow Effect"
+
+msgid "Add a gentle snowfall effect to your website for seasonal decoration."
+msgstr "Thêm hiệu ứng tuyết rơi nhẹ nhàng cho website để trang trí theo mùa."
+
+msgid "Slick Custom"
+msgstr "Slick Custom"
+
+msgid "Add support for displaying content in slideshow format on the website."
+msgstr "Thêm hỗ trợ hiển thị nội dung dạng trình chiếu trên website."
+
+msgid "You do not have permission to access this page."
+msgstr "Bạn không có quyền truy cập trang này."
+
+msgid "Changes saved."
+msgstr "Đã lưu thay đổi."
+
+msgid "Features"
+msgstr "Tính năng"
+
+msgid "Status"
+msgstr "Trạng thái"
+
+msgid "Customize"
+msgstr "Tùy chỉnh"
+
+msgid "Enable"
+msgstr "Bật"
+
+msgid "Save Changes"
+msgstr "Lưu thay đổi"
+
+msgid "You are not authorized to perform this action."
+msgstr "Bạn không có quyền thực hiện thao tác này."
+
+msgid "Settings"
+msgstr "Cài đặt"
+
+msgid "CSS class"
+msgstr "Lớp CSS"
+
+msgid "Enter the class name to track, without the leading dot."
+msgstr "Nhập tên class cần theo dõi, không bao gồm dấu chấm ở đầu."

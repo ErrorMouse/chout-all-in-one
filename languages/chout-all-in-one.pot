@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chout - All in One 1.0.0\n"
+"Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
+"POT-Creation-Date: 2026-06-10 00:00+0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Codex\n"
+"X-Domain: chout-all-in-one\n"
+
+msgid "Chout - All in One"
+msgstr ""
+
+msgid "A single control panel for enabling small website features only when you need them."
+msgstr ""
+
+msgid "Chout"
+msgstr ""
+
+msgid "This post was published at <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> and belongs to <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
+msgstr ""
+
+msgid "Admin Style"
+msgstr ""
+
+msgid "Refine the admin and editing interfaces to make content easier to read and manage."
+msgstr ""
+
+msgid "Add Signature to RSS"
+msgstr ""
+
+msgid "Add a source identifier to content distributed via RSS."
+msgstr ""
+
+msgid "Block WP-Admin Area from Non-Administrators"
+msgstr ""
+
+msgid "Keep the admin area limited to users with website management privileges."
+msgstr ""
+
+msgid "Disable Search & Redirect to Home"
+msgstr ""
+
+msgid "Disable site search and redirect visitors to the homepage when they attempt a search."
+msgstr ""
+
+msgid "Display Dashicons"
+msgstr ""
+
+msgid "Display familiar WordPress icons on the public-facing site."
+msgstr ""
+
+msgid "Keywords Everywhere"
+msgstr ""
+
+msgid "Automatically add relevant keywords to help content be easier to recognize."
+msgstr ""
+
+msgid "Redirect to Homepage Upon Logout"
+msgstr ""
+
+msgid "Return users to the homepage after they log out."
+msgstr ""
+
+msgid "Scroll Add Action"
+msgstr ""
+
+msgid "Create a state-change effect for content as visitors scroll."
+msgstr ""
+
+msgid "Snow Effect"
+msgstr ""
+
+msgid "Add a gentle snowfall effect to your website for seasonal decoration."
+msgstr ""
+
+msgid "Slick Custom"
+msgstr ""
+
+msgid "Add support for displaying content in slideshow format on the website."
+msgstr ""
+
+msgid "You do not have permission to access this page."
+msgstr ""
+
+msgid "Changes saved."
+msgstr ""
+
+msgid "Features"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Customize"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Save Changes"
+msgstr ""
+
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "CSS class"
+msgstr ""
+
+msgid "Enter the class name to track, without the leading dot."
+msgstr ""
+
