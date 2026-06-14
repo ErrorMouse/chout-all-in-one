@@ -38,8 +38,20 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 			add_action( 'admin_menu', array( __CLASS__, 'register_admin_menu' ) );
 			add_action( 'admin_post_chout_aio_save_features', array( __CLASS__, 'save_features' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'add_settings_link' ) );
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_styles' ) );
 		}
 
+		public static function enqueue_admin_styles( $hook_suffix ) {
+			if ( strpos( $hook_suffix, self::MENU_SLUG ) === false ) {
+				return;
+			}
+			wp_enqueue_style(
+				'chout-aio-admin-style',
+				plugin_dir_url( __FILE__ ) . 'assets/css/admin-settings.css',
+				array(),
+				self::VERSION
+			);
+		}
 
 		public static function activate() {
 			if ( false === get_option( self::OPTION_FEATURES, false ) ) {
@@ -232,62 +244,64 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 				delete_transient( self::settings_updated_transient_key() );
 			}
 			?>
-			<div class="wrap">
-				<h1>Chout - All in One</h1>
+			<div id="chout-all-in-one">
+				<div class="caio-wrap">
+					<h1>Chout - All in One<span class="author">by <a href="https://profiles.wordpress.org/nmtnguyen56/" target="_blank" rel="noopener noreferrer">Chout</a></span><span class="donate"><?php caio_donate_link_html(); ?></span></h1>
 
-				<?php if ( $updated ) : ?>
-					<div class="notice notice-success is-dismissible">
-						<p><?php esc_html_e( 'Changes saved.', 'chout-all-in-one' ); ?></p>
-					</div>
-				<?php endif; ?>
+					<?php if ( $updated ) : ?>
+						<div class="notice notice-success is-dismissible">
+							<p><?php esc_html_e( 'Changes saved.', 'chout-all-in-one' ); ?></p>
+						</div>
+					<?php endif; ?>
 
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-					<input type="hidden" name="action" value="chout_aio_save_features">
-					<?php wp_nonce_field( 'chout_aio_save_features' ); ?>
+					<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+						<input type="hidden" name="action" value="chout_aio_save_features">
+						<?php wp_nonce_field( 'chout_aio_save_features' ); ?>
 
-					<table class="widefat striped" style="max-width: 980px; margin-top: 20px;">
-						<thead>
-							<tr>
-								<th scope="col"><?php esc_html_e( 'Features', 'chout-all-in-one' ); ?></th>
-								<th scope="col" style="width: 180px;"><?php esc_html_e( 'Status', 'chout-all-in-one' ); ?></th>
-								<th scope="col" style="width: 180px;"><?php esc_html_e( 'Customize', 'chout-all-in-one' ); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ( $features as $slug => $feature ) : ?>
+						<table class="widefat striped" style="max-width: 980px; margin-top: 20px;">
+							<thead>
 								<tr>
-									<td>
-										<label for="chout-aio-feature-<?php echo esc_attr( $slug ); ?>">
-											<strong><?php echo esc_html( $feature['name'] ); ?></strong>
-										</label>
-										<p class="description"><?php echo esc_html( $feature['description'] ); ?></p>
-									</td>
-									<td>
-										<label>
-											<input
-												type="checkbox"
-												id="chout-aio-feature-<?php echo esc_attr( $slug ); ?>"
-												name="features[]"
-												value="<?php echo esc_attr( $slug ); ?>"
-												<?php checked( ! empty( $status[ $slug ] ) ); ?>
-											>
-											<?php esc_html_e( 'Enable', 'chout-all-in-one' ); ?>
-										</label>
-									</td>
-									<td>
-										<?php if ( ! empty( $feature['configurable'] ) && ! empty( $status[ $slug ] ) && ! empty( $feature['menu_slug'] ) ) : ?>
-											<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=' . $feature['menu_slug'] ) ); ?>">
-												<?php esc_html_e( 'Customize', 'chout-all-in-one' ); ?>
-											</a>
-										<?php endif; ?>
-									</td>
+									<th scope="col" style="width: 60px;text-align: center;"><?php esc_html_e( 'Status', 'chout-all-in-one' ); ?></th>
+									<th scope="col"><?php esc_html_e( 'Features', 'chout-all-in-one' ); ?></th>
+									<th scope="col" style="width: 80px;"></th>
 								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<?php foreach ( $features as $slug => $feature ) : ?>
+									<tr>
+										<td style="text-align: center;">
+											<label>
+												<input
+													type="checkbox"
+													id="chout-aio-feature-<?php echo esc_attr( $slug ); ?>"
+													name="features[]"
+													value="<?php echo esc_attr( $slug ); ?>"
+													<?php checked( ! empty( $status[ $slug ] ) ); ?>
+												>
+												<!-- <?php esc_html_e( 'Enable', 'chout-all-in-one' ); ?> -->
+											</label>
+										</td>
+										<td>
+											<label for="chout-aio-feature-<?php echo esc_attr( $slug ); ?>">
+												<strong><?php echo esc_html( $feature['name'] ); ?></strong>
+											</label>
+											<p class="description"><?php echo esc_html( $feature['description'] ); ?></p>
+										</td>
+										<td>
+											<?php if ( ! empty( $feature['configurable'] ) && ! empty( $status[ $slug ] ) && ! empty( $feature['menu_slug'] ) ) : ?>
+												<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'admin.php?page=' . $feature['menu_slug'] ) ); ?>">
+													<?php esc_html_e( 'Customize', 'chout-all-in-one' ); ?>
+												</a>
+											<?php endif; ?>
+										</td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
 
-					<?php submit_button( __( 'Save Changes', 'chout-all-in-one' ) ); ?>
-				</form>
+						<?php submit_button( __( 'Save Changes', 'chout-all-in-one' ) ); ?>
+					</form>
+				</div>
 			</div>
 			<?php
 		}
@@ -332,3 +346,14 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 
 register_activation_hook( __FILE__, array( 'Chout_AIO', 'activate' ) );
 Chout_AIO::init();
+
+/* Donate */
+function caio_donate_link_html() {
+    $donate_url = 'https://chout.id.vn/donate';
+    printf(
+        '<a href="%1$s" target="_blank" rel="noopener noreferrer" class="err-donate-link" aria-label="%2$s"><span>%3$s 🚀</span></a>',
+        esc_url( $donate_url ),
+        esc_attr__( 'Donate to support this plugin', 'chout-all-in-one' ),
+        esc_html__( 'Donate', 'chout-all-in-one' )
+    );
+}
