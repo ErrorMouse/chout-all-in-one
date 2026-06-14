@@ -24,8 +24,8 @@ body.wp-admin {
 
 body.wp-admin #editor .edit-post-visual-editor,
 body.block-editor-iframe__body {
-   --cl-main: #0166ff;
-   --cl-main-hover: #004ec4;
+   --cl-main: #00a1ff;
+   --cl-main-hover: #0066ff;
    
    background-color: #FFFFFF;
 

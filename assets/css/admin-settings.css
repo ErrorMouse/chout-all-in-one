@@ -1,8 +1,8 @@
 #chout-all-in-one {
     --color-main-1: #00a1ff;
     --color-main-2: #0066ff;
-    --color-success-bd: #9fd5a8;
     --color-success-bg: #edfaef;
+    --color-success-bd: #9fd5a8;
     --color-success-tx: #14532d;
     max-width: 100%;
 
@@ -29,6 +29,7 @@
         .notice.notice-success {
             background-color: var(--color-success-bg);
             border: thin solid var(--color-success-bd);
+            color: var(--color-success-tx);
         }
 
         table {
