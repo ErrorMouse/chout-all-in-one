@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
