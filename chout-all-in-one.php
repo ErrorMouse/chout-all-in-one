@@ -21,13 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 require __DIR__ . '/vendor/plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 $myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/ErrorMouse/chout-all-in-one/', // Option 1
-	// 'https://raw.githubusercontent.com/ErrorMouse/chout-all-in-one/refs/heads/main/chout-all-in-one.json', // Option 2
+	'https://github.com/ErrorMouse/chout-all-in-one/',
 	__FILE__,
 	'chout-all-in-one'
 );
-$myUpdateChecker->setBranch('main'); // Option 1
+$myUpdateChecker->setBranch('main'); 
 // End
+
+// // Plugin Update Checker
+// require __DIR__ . '/vendor/plugin-update-checker/plugin-update-checker.php';
+// use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+// $myUpdateChecker = PucFactory::buildUpdateChecker(
+// 	'https://raw.githubusercontent.com/ErrorMouse/chout-all-in-one/refs/heads/main/chout-all-in-one.json',
+// 	__FILE__,
+// 	'chout-all-in-one'
+// );
+// // End
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
