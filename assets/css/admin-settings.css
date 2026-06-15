@@ -1,8 +1,9 @@
-#chout-all-in-one {
+.chout-all-in-one {
     --color-main-1: #00a1ff;
     --color-main-2: #0066ff;
-    --color-success-bg: #edfaef;
+    --color-main-bg: #edfbff;
     --color-success-bd: #9fd5a8;
+    --color-success-bg: #edfaef;
     --color-success-tx: #14532d;
     max-width: 100%;
 
@@ -19,6 +20,13 @@
             line-height: 1.5;
         }
 
+        h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
         .notice {
             margin: 0 0 16px;
             border: thin solid var(--color-main-bd);
@@ -29,26 +37,33 @@
         .notice.notice-success {
             background-color: var(--color-success-bg);
             border: thin solid var(--color-success-bd);
-            color: var(--color-success-tx);
         }
 
         table {
             border: 0;
             box-shadow: none;
 
+            thead td,
             thead th {
                 color: #1d2327;
                 font-size: 1em;
                 font-weight: 600;
                 border-bottom: 1px solid var(--color-main-1);
+
+                a {
+                    color: #1d2327;
+                }
             }
 
-            tbody>tr:first-child td {
-                border-top: 10px solid #fff;
-            }
+            tbody>tr:first-child {
+                th,
+                td {
+                    border-top: 10px solid #fff;
+                }
+            } 
 
             tbody>:nth-child(odd) {
-                background-color: #edfbff;
+                background-color: var(--color-main-bg);
             }
 
             tbody td {
@@ -65,21 +80,35 @@
                     color: #838383;
                     font-size: .9em;
                 }
-
-                input[type=checkbox] {
-                    border-color: var(--color-main-1);
-                }
-
-                input[type=checkbox]:checked {
-                    background-color: var(--color-main-1);
-                }
-
-                input[type=checkbox]:focus,
-                input[type=radio]:focus,
-                .button:focus {
-                    box-shadow: none;
-                }
             }
+
+        }
+
+        input,
+        textarea {
+            border-color: var(--color-main-1);
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+
+        textarea[readonly] {
+            background-color: #f4fdff;
+        }
+
+        input[type=checkbox]:checked {
+            background-color: var(--color-main-1);
+        }
+
+        input:focus:not([type=checkbox]),
+        .button:focus,
+        a:focus {
+            border-color: var(--color-main-2);
+        }
+
+        input:focus,
+        .button:focus,
+        a:focus {
+            box-shadow: none;
         }
 
         .button {
@@ -90,13 +119,14 @@
         }
 
         .button-secondary {
-            padding: 0 10px;
+            padding: 3px 10px;
             background-color: #fff;
             color: var(--color-main-1);
-            font-size: 11px;
+            font-size: 12px;
         }
 
-        #submit {
+        #submit,
+        #caio_add_ip_btn {
             position: relative;
             z-index: 1;
             padding: 3px 15px;
@@ -113,7 +143,8 @@
             transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
         }
 
-        #submit:hover  {
+        #submit:hover,
+        #caio_add_ip_btn:hover  {
             box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
             animation-duration: 1.2s;
             transform: scale(1.1);
@@ -181,7 +212,7 @@
 }
 
 @media (min-width: 768.6px) {
-    #chout-all-in-one {
+    .chout-all-in-one {
         margin-top: 40px;
         padding: 40px;
 
@@ -193,7 +224,7 @@
 }
 
 @media (max-width: 768.5px) {
-    #chout-all-in-one {
+    .chout-all-in-one {
         margin-top: 20px;
         padding: 10px;
 
@@ -218,4 +249,8 @@
     100% {
         background-position: 0% 50%;
     }
+}
+
+#chout-all-in-one {
+
 }

@@ -30,6 +30,20 @@ function chout_aio_delete_settings_updated_transients() {
 function chout_aio_uninstall_site() {
 	delete_option( 'chout_aio_features' );
 	delete_option( 'chout_aio_scroll_add_action_class' );
+	
+	// Clean up Block IPs data
+	delete_option( 'chout_aio_custom_blocked_ips' );
+	delete_option( 'chout_aio_use_aio_ips' );
+	delete_transient( 'chout_aio_github_blocked_ips' );
+
+	// Remove htaccess rules
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	require_once ABSPATH . 'wp-admin/includes/misc.php';
+	$htaccess_file = get_home_path() . '.htaccess';
+	if ( file_exists( $htaccess_file ) ) {
+		insert_with_markers( $htaccess_file, 'Chout_AIO_Block_IPs', array() );
+	}
+
 	chout_aio_delete_settings_updated_transients();
 }
 

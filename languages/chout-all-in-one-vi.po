@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Chout - All in One 1.0.0\n"
+"Project-Id-Version: Chout - All in One 1.1.0\n"
 "Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
 "POT-Creation-Date: 2026-06-10 00:00+0700\n"
-"PO-Revision-Date: 2026-06-10 20:14+0700\n"
+"PO-Revision-Date: 2026-06-15 22:29+0700\n"
 "Last-Translator: Chout <https://profiles.wordpress.org/nmtnguyen56/>\n"
 "Language-Team: Vietnamese\n"
 "Language: vi\n"
@@ -118,3 +118,114 @@ msgstr "Lớp CSS"
 
 msgid "Enter the class name to track, without the leading dot."
 msgstr "Nhập tên class cần theo dõi, không bao gồm dấu chấm ở đầu."
+
+msgid "Are you sure you want to delete the selected IP(s)?"
+msgstr "Bạn có chắc chắn muốn xóa (các) IP đã chọn không?"
+
+msgid "An error occurred. Please try again."
+msgstr "Đã xảy ra lỗi. Vui lòng thử lại."
+
+msgid "Please enter an IP address."
+msgstr "Vui lòng nhập địa chỉ IP."
+
+msgid "Unauthorized"
+msgstr "Không có quyền truy cập"
+
+msgid "IP cannot be empty."
+msgstr "Địa chỉ IP không được để trống."
+
+msgid "IP already exists."
+msgstr "Địa chỉ IP này đã tồn tại."
+
+msgid "IP added successfully."
+msgstr "Đã thêm IP thành công."
+
+msgid "No IPs selected."
+msgstr "Chưa chọn IP nào."
+
+msgid "IPs deleted successfully."
+msgstr "Đã xóa IP thành công."
+
+msgid "Invalid action."
+msgstr "Hành động không hợp lệ."
+
+msgid "Your IP address has been blocked from accessing this website."
+msgstr "Địa chỉ IP của bạn đã bị chặn truy cập vào trang web này."
+
+msgid "Access Denied"
+msgstr "Truy cập bị từ chối"
+
+msgid "Chout - Block IPs"
+msgstr "Chout - Block IPs"
+
+msgid "Block specific IP addresses from accessing the website, with support for AIO community blocklist."
+msgstr "Chặn các địa chỉ IP cụ thể truy cập vào trang web, có hỗ trợ danh sách đen từ cộng đồng AIO."
+
+msgid "AIO Blocklist"
+msgstr "AIO Blocklist"
+
+msgid "Use the community-provided blacklist to block known malicious IPs automatically."
+msgstr "Sử dụng danh sách đen do cộng đồng cung cấp để tự động chặn các IP độc hại đã biết."
+
+msgid "Use the IP address list detected by AIO."
+msgstr "Sử dụng danh sách địa chỉ IPs đã được phát hiện bởi AIO."
+
+msgid "AIO Provided IPs (Read-only):"
+msgstr "Các IP do AIO cung cấp (Chỉ đọc):"
+
+msgid "Custom IP Blocklist"
+msgstr "Danh sách chặn IP tùy chỉnh"
+
+msgid "Add specific IPs you want to block. You can use full IPs or partial IPs (e.g., 206.189.)."
+msgstr "Thêm các IP cụ thể mà bạn muốn chặn. Bạn có thể sử dụng toàn bộ IP hoặc một phần IP (ví dụ: 206.189.)."
+
+msgid "IP Address"
+msgstr "Địa chỉ IP"
+
+msgid "Note (Optional)"
+msgstr "Ghi chú (Tùy chọn)"
+
+msgid "Add IP"
+msgstr "Thêm IP"
+
+msgid "Delete Selected"
+msgstr "Xóa mục đã chọn"
+
+msgid "Search IPs..."
+msgstr "Tìm kiếm IP..."
+
+msgid "Date Added"
+msgstr "Ngày thêm"
+
+msgid "Note"
+msgstr "Ghi chú"
+
+msgid "Actions"
+msgstr "Hành động"
+
+msgid "No IPs added yet."
+msgstr "Chưa có IP nào được thêm."
+
+msgid "Delete"
+msgstr "Xóa"
+
+msgid "File upload failed."
+msgstr "Tải tệp lên thất bại."
+
+msgid "Successfully added %d IPs from CSV."
+msgstr "Đã thêm thành công %d IP từ tệp CSV."
+
+msgid "No new IPs found or added from the CSV file."
+msgstr "Không tìm thấy hoặc không có IP mới nào được thêm từ tệp CSV."
+
+msgid "Upload CSV"
+msgstr "Tải lên CSV"
+
+msgid "Upload a CSV file containing IPs (Column 1: IP, Column 2: Note)."
+msgstr "Tải lên tệp CSV chứa danh sách IP (Cột 1: Địa chỉ IP, Cột 2: Ghi chú)."
+
+msgid "Please select a CSV file."
+msgstr "Vui lòng chọn một tệp CSV."
+
+msgid "Invalid IP format."
+msgstr "Định dạng IP không hợp lệ."

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.0.1
+ * Version:           1.1.0
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
@@ -21,15 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 require __DIR__ . '/vendor/plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 $myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://raw.githubusercontent.com/ErrorMouse/chout-all-in-one/refs/heads/main/chout-all-in-one.json',
+	'https://github.com/ErrorMouse/chout-all-in-one/',
 	__FILE__,
 	'chout-all-in-one'
 );
+$myUpdateChecker->setBranch('main');
 // End
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
-		const VERSION         = '1.0.0';
+		const VERSION         = '1.1.0';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';
 
@@ -42,7 +43,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 		}
 
 		public static function enqueue_admin_styles( $hook_suffix ) {
-			if ( strpos( $hook_suffix, self::MENU_SLUG ) === false ) {
+			if ( strpos( $hook_suffix, self::MENU_SLUG ) === false && strpos( $hook_suffix, 'chout-aio' ) === false ) {
 				return;
 			}
 			wp_enqueue_style(
@@ -79,6 +80,15 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 					'description' => __( 'Add a source identifier to content distributed via RSS.', 'chout-all-in-one' ),
 					'file'        => 'add-signature-to-rss/add-signature-to-rss.php',
 					'class'       => 'Chout_AIO_Add_Signature_To_RSS',
+				),
+				'block-ips'                           	=> array(
+					'name'            => __( 'Block IPs', 'chout-all-in-one' ),
+					'description'     => __( 'Block specific IP addresses from accessing the website, with support for AIO community blocklist.', 'chout-all-in-one' ),
+					'file'            => 'block-ips/block-ips.php',
+					'class'           => 'Chout_AIO_Block_IPs',
+					'configurable'    => true,
+					'menu_slug'       => 'chout-aio-block-ips',
+					'config_callback' => array( 'Chout_AIO_Block_IPs', 'settings_page' ),
 				),
 				'block-wpadmin-area-from-non-admin'		=> array(
 					'name'        => __( 'Block WP-Admin Area from Non-Administrators', 'chout-all-in-one' ),
@@ -130,7 +140,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 					'description' => __( 'Add support for displaying content in slideshow format on the website.', 'chout-all-in-one' ),
 					'file'        => 'slick-custom/slick-custom.php',
 					'class'       => 'Chout_AIO_Slick_Custom',
-				),
+				)
 			);
 		}
 
@@ -146,6 +156,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 				'add-signature-to-rss',
 				'redirects-to-the-homepage-upon-logout',
 				'slick-custom',
+				'block-ips',
 			);
 		}
 
@@ -244,9 +255,9 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 				delete_transient( self::settings_updated_transient_key() );
 			}
 			?>
-			<div id="chout-all-in-one">
+			<div id="chout-all-in-one" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1>Chout - All in One<span class="author">by <a href="https://profiles.wordpress.org/nmtnguyen56/" target="_blank" rel="noopener noreferrer">Chout</a></span><span class="donate"><?php caio_donate_link_html(); ?></span></h1>
+					<h1>Chout - All in One<span class="author">by <a href="https://profiles.wordpress.org/nmtnguyen56/" target="_blank" rel="noopener noreferrer">Chout</a></span><span class="donate"><?php chout_caio_donate_link_html(); ?></span></h1>
 
 					<?php if ( $updated ) : ?>
 						<div class="notice notice-success is-dismissible">
@@ -348,7 +359,7 @@ register_activation_hook( __FILE__, array( 'Chout_AIO', 'activate' ) );
 Chout_AIO::init();
 
 /* Donate */
-function caio_donate_link_html() {
+function chout_caio_donate_link_html() {
     $donate_url = 'https://chout.id.vn/donate';
     printf(
         '<a href="%1$s" target="_blank" rel="noopener noreferrer" class="err-donate-link" aria-label="%2$s"><span>%3$s 🚀</span></a>',

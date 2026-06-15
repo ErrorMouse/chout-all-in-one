@@ -1,0 +1,140 @@
+#chout-aio-block-ips {
+    --color-main-1: #00a1ff;
+    --color-main-bg: #edfbff;
+
+    .caio-card:not(:first-child) {
+        margin-top: 60px;
+    }
+
+    .caio-card {
+
+        h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .caio-switch {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            margin: 15px 0;
+            font-weight: 600;
+
+            input {
+                margin: 0 .5rem 0 0;
+            }
+        }
+
+        .caio-aio-list-container {
+            background-color: var(--color-main-bg);
+            padding: 15px;
+            border-left: 4px solid var(--color-main-1);
+            border-radius: 5px;
+        }
+
+        .caio-add-ip-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+
+            .regular-text {
+                flex: 1 1 20em;
+                max-width: 100%;
+            }
+        }
+
+        .description {
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-style: italic;
+            text-align: right;
+        }
+
+        input.regular-text,
+        #caio_search_ip {
+            min-height: 33px;
+        }
+
+        #caio_search_ip {
+            margin-left: auto;
+        }
+
+        hr {
+            width: 40%;
+            float: right;
+            margin: 0 0 15px;
+            border-top: 1px solid #dcdcde;
+            border-bottom: 1px solid #f6f7f7;
+            
+        }
+
+        .caio-table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #caio_ips_table th.sortable a {
+            display: flex;
+            align-items: center;
+        }
+
+        #caio_ips_table {
+            min-width: 600px;
+
+            .sorting-indicator {
+                display: block;
+                width: 10px;
+                height: 18px;
+                margin-top: 0;
+                margin-left: 7px;
+            }
+
+            th.sortable a span.sorting-indicator:before {
+                content: "\f142";
+                font: normal 20px/1 dashicons;
+                speak: never;
+                display: inline-block;
+                padding: 0;
+                top: 4px;
+                left: -8px;
+                line-height: 10px;
+                position: relative;
+                vertical-align: top;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                text-decoration: none !important;
+                color: #444;
+            }
+
+            th.sortable.asc a span.sorting-indicator:before {
+                content: "\f142";
+            }
+
+            th.sortable.desc a span.sorting-indicator:before {
+                content: "\f140";
+            }
+
+            .ip-col {
+                font-size: 14px;
+                color: #333;
+            }
+
+            tr.no-items td {
+                text-align: center;
+                padding: 20px !important;
+                color: #666;
+            }
+            
+            th,
+            td {
+                padding: 15px 10px;
+                vertical-align: middle;
+            }
+        } 
+    }
+}
