@@ -27,10 +27,10 @@
    /**
     * Initialize the snowflakes.
     */
-   function initSnow() {
+    function initSnow() {
       const snowSizeRange = snowMaxSize - snowMinSize;
-      marginBottom = document.body.scrollHeight - 5;
-      marginRight = document.body.clientWidth - 15;
+      marginBottom = window.innerHeight - 5;
+      marginRight = window.innerWidth - 15;
 
       const snowContainer = document.body;
 
@@ -42,9 +42,10 @@
          flake.setAttribute('style', snowStyles);
 
          // Apply the positioning and display styles.
-         flake.style.position = "absolute";
+         flake.style.position = "fixed";
          flake.style.fontFamily = "inherit";
-         flake.style.zIndex = 1000;
+         flake.style.zIndex = 999999;
+         flake.style.pointerEvents = "none"; // Ensure clicks pass through
 
          // Calculate and apply random snowflake properties.
          const currentFlakeSize = randomise(snowSizeRange) + snowMinSize;
@@ -55,7 +56,6 @@
          flake.size = currentFlakeSize;
          flake.sink = (snowSpeed * flake.size) / 20; // Falling speed based on size
          flake.posX = randomise(marginRight - flake.size); // Initial X position
-         // Randomly distribute the initial Y position across the page height.
          flake.posY = randomise(marginBottom - 2 * flake.size);
 
          flake.style.left = flake.posX + "px";
@@ -76,8 +76,8 @@
     * Update dimensions when the window changes.
     */
    function resize() {
-      marginBottom = document.body.scrollHeight - 5;
-      marginRight = document.body.clientWidth - 15;
+      marginBottom = window.innerHeight - 5;
+      marginRight = window.innerWidth - 15;
    }
 
    /**
@@ -98,12 +98,11 @@
 
          // Reset the snowflake to the top if it leaves the screen at the bottom or right edge.
          if (
-            flake.posY >= marginBottom - 2 * flake.size || // Beyond the bottom edge
-            currentX > marginRight - 3 * lefr[i]          // Beyond the right edge (original logic)
-            // Add a left-edge check if needed: currentX < -flake.size - lefr[i]
+            flake.posY >= marginBottom || // Beyond the bottom edge completely
+            currentX > marginRight // Beyond the right edge
          ) {
             flake.posX = randomise(marginRight - flake.size); // New random X position
-            flake.posY = 0; // Reset to the top
+            flake.posY = -flake.size; // Reset to above the top edge
          }
       }
       requestAnimationFrame(moveSnow); // Use requestAnimationFrame for smoother animation

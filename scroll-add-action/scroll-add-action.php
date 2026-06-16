@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 	final class Chout_AIO_Scroll_Add_Action {
 		const OPTION_CLASS_NAME = 'chout_aio_scroll_add_action_class';
+		const OPTION_CUSTOM_CSS = 'chout_aio_scroll_add_action_custom_css';
 
 		public static function init() {
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -13,8 +14,13 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 
 		public static function enqueue_assets() {
 			$class_name = self::get_class_name();
+			$custom_css = self::get_custom_css();
 
 			wp_enqueue_style( 'scroll-add-action', plugin_dir_url( __FILE__ ) . 'scroll-add-action.css', array(), '1.0', 'all' );
+
+			if ( ! empty( $custom_css ) ) {
+				wp_add_inline_style( 'scroll-add-action', wp_strip_all_tags( $custom_css ) );
+			}
 
 			if ( '' === $class_name ) {
 				return;
@@ -44,30 +50,59 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 
 				$class_name = isset( $_POST['scroll_add_action'] ) ? sanitize_html_class( wp_unslash( $_POST['scroll_add_action'] ) ) : '';
 				self::save_class_name( $class_name );
+
+				$custom_css = isset( $_POST['scroll_add_action_css'] ) ? wp_strip_all_tags( wp_unslash( $_POST['scroll_add_action_css'] ) ) : '';
+				self::save_custom_css( $custom_css );
+
 				$saved = true;
 			}
 
 			$class_name = self::get_class_name();
+			$custom_css = self::get_custom_css();
+			$display_class = $class_name ? $class_name : 'action';
 			?>
-			<div class="wrap">
-				<h1>Scroll Add Action</h1>
 
-				<?php if ( $saved ) : ?>
-					<div class="notice notice-success is-dismissible">
-						<p><?php esc_html_e( 'Changes saved.', 'chout-all-in-one' ); ?></p>
+			<div class="chout-background-effect"></div>
+
+			<div id="chout-aio-scroll-add-action" class="chout-all-in-one">
+				<div class="caio-wrap">
+					<h1>Chout - Scroll Add Action</h1>
+
+					<div id="chout-donate">
+						<span class="author">
+							By 
+							<a href="https://profiles.wordpress.org/nmtnguyen56/" target="_blank" rel="noopener noreferrer">
+								Chout
+							</a>
+						</span>
+						<span class="donate">
+							<?php chout_caio_donate_link_html(); ?>
+						</span>
 					</div>
-				<?php endif; ?>
 
-				<form method="post" action="">
-					<?php wp_nonce_field( 'chout_aio_scroll_add_action', 'chout_aio_scroll_add_action_nonce' ); ?>
+					<?php if ( $saved ) : ?>
+						<div id="caio-toast-notification" class="caio-toast show">
+							<?php esc_html_e( 'Changes saved.', 'chout-all-in-one' ); ?>
+						</div>
+						<script>
+							setTimeout(function(){
+								var toast = document.getElementById("caio-toast-notification");
+								if(toast) { toast.className = toast.className.replace("show", ""); }
+							}, 3000);
+						</script>
+					<?php endif; ?>
 
-					<table class="form-table" role="presentation">
-						<tbody>
-							<tr>
-								<th scope="row">
-									<label for="scroll_add_action"><?php esc_html_e( 'CSS class', 'chout-all-in-one' ); ?></label>
-								</th>
-								<td>
+					<hr class="hr-h2">
+
+					<form method="post" action="">
+						<?php wp_nonce_field( 'chout_aio_scroll_add_action', 'chout_aio_scroll_add_action_nonce' ); ?>
+
+						<div class="caio-card">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 40px;">
+								<div>
+									<label for="scroll_add_action"><strong><?php esc_html_e( 'CSS class', 'chout-all-in-one' ); ?></strong></label>
+								</div>
+								<div style="max-width: 100%;">
 									<input
 										type="text"
 										id="scroll_add_action"
@@ -75,14 +110,35 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 										class="regular-text"
 										value="<?php echo esc_attr( $class_name ); ?>"
 									>
-									<p class="description"><?php esc_html_e( 'Enter the class name to track, without the leading dot.', 'chout-all-in-one' ); ?></p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+									<p class="description" style="margin-top: 5px; font-style: italic; text-align: center;"><?php esc_html_e( 'Enter the class name to track, without the leading dot.', 'chout-all-in-one' ); ?></p>
+								</div>
+							</div>
 
-					<?php submit_button( __( 'Save Changes', 'chout-all-in-one' ) ); ?>
-				</form>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 20px;">
+								<div style="width: 100%; text-align: center;">
+									<label for="scroll_add_action_css"><strong><?php esc_html_e( 'Custom CSS', 'chout-all-in-one' ); ?></strong></label>
+									<p class="description" style="margin-top: 5px; font-style: italic;">
+										<?php
+										/* translators: %s: CSS class name */
+										printf( esc_html__( 'When the user scrolls to the target, the "%s" class will be automatically added to the element. You can write the CSS formatting for that class here:', 'chout-all-in-one' ), esc_html( $display_class ) );
+										?>
+									</p>
+								</div>
+								<div style="width: 100%; max-width: 600px;">
+									<textarea
+										id="scroll_add_action_css"
+										name="scroll_add_action_css"
+										class="large-text code"
+										rows="10"
+										placeholder=".<?php echo esc_attr( $display_class ); ?> {&#10;    color: #000;&#10;    /* Add your custom styles here */&#10;}"
+									><?php echo esc_textarea( $custom_css ); ?></textarea>
+								</div>
+							</div>
+						</div>
+
+						<p style="text-align: center;"><?php submit_button( __( 'Save Changes', 'chout-all-in-one' ), 'primary', 'submit', false ); ?></p>
+					</form>
+				</div>
 			</div>
 			<?php
 		}
@@ -95,6 +151,16 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 
 		private static function save_class_name( $class_name ) {
 			update_option( self::OPTION_CLASS_NAME, $class_name, false );
+		}
+
+		private static function get_custom_css() {
+			$custom_css = get_option( self::OPTION_CUSTOM_CSS, '' );
+
+			return is_string( $custom_css ) ? $custom_css : '';
+		}
+
+		private static function save_custom_css( $custom_css ) {
+			update_option( self::OPTION_CUSTOM_CSS, $custom_css, false );
 		}
 	}
 }

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Chout - All in One 1.1.0\n"
 "Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
 "POT-Creation-Date: 2026-06-10 00:00+0700\n"
-"PO-Revision-Date: 2026-06-15 22:29+0700\n"
+"PO-Revision-Date: 2026-06-17 00:09+0700\n"
 "Last-Translator: Chout <https://profiles.wordpress.org/nmtnguyen56/>\n"
 "Language-Team: Vietnamese\n"
 "Language: vi\n"
@@ -25,6 +25,9 @@ msgstr "Chout"
 
 msgid "This post was published at <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> and belongs to <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
 msgstr "Bài viết này được đăng tại <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> và thuộc về <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
+
+msgid "All settings updated successfully."
+msgstr "Tất cả các cài đặt đã được cập nhật thành công."
 
 msgid "Admin Style"
 msgstr "Admin Style"
@@ -59,11 +62,17 @@ msgstr "Hiển thị các biểu tượng WordPress quen thuộc ở giao diện
 msgid "Keywords Everywhere"
 msgstr "Keywords Everywhere"
 
+msgid "Add subtle keyword signals to content."
+msgstr "Thêm các từ khóa tinh tế vào nội dung."
+
 msgid "Automatically add relevant keywords to help content be easier to recognize."
 msgstr "Tự động thêm các từ khóa liên quan để nội dung dễ được nhận diện hơn."
 
 msgid "Redirect to Homepage Upon Logout"
 msgstr "Redirect to Homepage Upon Logout"
+
+msgid "Send users back to the homepage after they log out instead of the login screen."
+msgstr "Sau khi đăng xuất, đưa người dùng trở lại trang chủ thay vì màn hình đăng nhập."
 
 msgid "Return users to the homepage after they log out."
 msgstr "Đưa người dùng trở về trang chủ sau khi họ đăng xuất."
@@ -94,9 +103,6 @@ msgstr "Đã lưu thay đổi."
 
 msgid "Features"
 msgstr "Tính năng"
-
-msgid "Status"
-msgstr "Trạng thái"
 
 msgid "Customize"
 msgstr "Tùy chỉnh"
@@ -154,9 +160,6 @@ msgstr "Địa chỉ IP của bạn đã bị chặn truy cập vào trang web n
 
 msgid "Access Denied"
 msgstr "Truy cập bị từ chối"
-
-msgid "Chout - Block IPs"
-msgstr "Chout - Block IPs"
 
 msgid "Block specific IP addresses from accessing the website, with support for AIO community blocklist."
 msgstr "Chặn các địa chỉ IP cụ thể truy cập vào trang web, có hỗ trợ danh sách đen từ cộng đồng AIO."
@@ -216,16 +219,127 @@ msgid "Successfully added %d IPs from CSV."
 msgstr "Đã thêm thành công %d IP từ tệp CSV."
 
 msgid "No new IPs found or added from the CSV file."
-msgstr "Không tìm thấy hoặc không có IP mới nào được thêm từ tệp CSV."
+msgstr "Không tìm thấy IP mới nào hoặc không có IP nào được thêm từ tệp CSV."
 
 msgid "Upload CSV"
 msgstr "Tải lên CSV"
 
+msgid "Enable to update via static JSON (prevents API 403 errors). Disable to update via GitHub API."
+msgstr "Bật để lấy bản cập nhật qua tệp JSON tĩnh (Chống lỗi 403 API), tắt để lấy từ Github API (Hiển thị chi tiết hơn)."
+
+msgid "Update via JSON"
+msgstr "Cập nhật bằng JSON"
+
 msgid "Upload a CSV file containing IPs (Column 1: IP, Column 2: Note)."
 msgstr "Tải lên tệp CSV chứa danh sách IP (Cột 1: Địa chỉ IP, Cột 2: Ghi chú)."
+
+msgid "Add Featured Image Column"
+msgstr "Add Featured Image Column"
+
+msgid "Display the featured image thumbnail in the post list."
+msgstr "Hiển thị ảnh thu nhỏ của ảnh đại diện trong danh sách bài viết."
+
+msgid "Featured Image"
+msgstr "Ảnh đại diện"
+
+msgid "Add Media File Size Column"
+msgstr "Add Media File Size Column"
+
+msgid "Display file size column in the Media Library list view."
+msgstr "Hiển thị cột dung lượng tệp trong chế độ xem danh sách của Thư viện Media."
+
+msgid "File Size"
+msgstr "Dung lượng"
+
+msgid "Disable Comments"
+msgstr "Disable Comments"
+
+msgid "Completely disable comments and remove the Comments menu from the dashboard."
+msgstr "Vô hiệu hóa hoàn toàn tính năng bình luận và xóa menu Bình luận khỏi bảng điều khiển."
+
+msgid "Disable Emojis"
+msgstr "Disable Emojis"
+
+msgid "Remove WordPress core emoji scripts and styles to improve page loading speed."
+msgstr "Xóa các tệp script và style của biểu tượng cảm xúc mặc định trong WordPress để cải thiện tốc độ tải trang."
+
+msgid "Disable jQuery Migrate"
+msgstr "Disable jQuery Migrate"
+
+msgid "Deregister the jquery-migrate script from the frontend to save bandwidth."
+msgstr "Gỡ bỏ tệp script jquery-migrate ở giao diện người dùng để tiết kiệm băng thông."
+
+msgid "Remove WP Logo From Admin Bar"
+msgstr "Remove WP Logo From Admin Bar"
+
+msgid "Make WordPress dashicons available on the public-facing site."
+msgstr "Cung cấp các biểu tượng dashicon của WordPress trên trang web dành cho công chúng."
+
+msgid "Remove the WordPress logo menu from the top admin bar."
+msgstr "Xóa menu chứa logo WordPress ở góc trên bên trái thanh quản trị."
+
+msgid "Allow SVG Files Upload"
+msgstr "Cho phép tải lên tệp SVG"
+
+msgid "Allow administrator users to upload SVG files safely."
+msgstr "Cho phép Quản trị viên tải lên các tệp định dạng SVG một cách an toàn."
+
+msgid "Disable XML-RPC"
+msgstr "Disable XML-RPC"
+
+msgid "Completely disable XML-RPC to improve website security and prevent brute force attacks."
+msgstr "Vô hiệu hóa hoàn toàn giao thức XML-RPC để tăng cường bảo mật và ngăn chặn các cuộc tấn công dò mật khẩu (Brute force)."
+
+msgid "Display a reading progress bar at the top or bottom of the screen as users scroll."
+msgstr "Hiển thị một thanh tiến trình đọc bài viết ở trên cùng hoặc dưới cùng màn hình khi người dùng cuộn trang."
+
+msgid "Unauthorized user"
+msgstr "Người dùng không có quyền truy cập"
+
+msgid "Settings saved."
+msgstr "Đã lưu cài đặt."
+
+msgid "Scroll Progress Bar Settings"
+msgstr "Cài đặt Scroll Progress Bar"
+
+msgid "Bar Color"
+msgstr "Màu sắc thanh"
+
+msgid "Bar Height (px)"
+msgstr "Độ dày thanh (px)"
+
+msgid "Position"
+msgstr "Vị trí"
+
+msgid "Top"
+msgstr "Trên cùng"
+
+msgid "Bottom"
+msgstr "Dưới cùng"
 
 msgid "Please select a CSV file."
 msgstr "Vui lòng chọn một tệp CSV."
 
 msgid "Invalid IP format."
 msgstr "Định dạng IP không hợp lệ."
+
+msgid "View Demo"
+msgstr "Xem Demo"
+
+msgid "Setting updated successfully."
+msgstr "Đã lưu thành công."
+
+msgid "Error saving setting."
+msgstr "Lỗi khi lưu."
+
+msgid "Connection error."
+msgstr "Lỗi kết nối."
+
+msgid "Custom CSS"
+msgstr "CSS Tùy chỉnh"
+
+msgid "When the user scrolls to the target, the \"%s\" class will be automatically added to the element. You can write the CSS formatting for that class here:"
+msgstr "Khi người dùng cuộn đến mục tiêu, class \"%s\" sẽ tự động được thêm vào phần tử. Bạn có thể viết CSS định dạng cho class đó tại đây:"
+
+msgid "Toggle All"
+msgstr "Bật / Tắt tất cả"

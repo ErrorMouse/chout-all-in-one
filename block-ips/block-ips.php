@@ -375,19 +375,29 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			$aio_ips     = self::get_aio_ips();
 			$custom_ips  = self::get_custom_ips();
 			?>
+			
+			<div class="chout-background-effect"></div>
+
 			<div id="chout-aio-block-ips" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1><?php esc_html_e( 'Chout - Block IPs', 'chout-all-in-one' ); ?><span class="author">by <a href="https://profiles.wordpress.org/nmtnguyen56/" target="_blank" rel="noopener noreferrer">Chout</a></span><span class="donate"><?php chout_caio_donate_link_html(); ?></span></h1>
-					
-					<div class="notice notice-success is-dismissible" id="caio-message" style="display: none;">
-						<p></p>
-					</div>
-					<div class="notice notice-error is-dismissible" id="caio-error" style="display: none;">
-						<p></p>
-					</div>
+					<h1>Chout - Block IPs</h1>
 
+					<div id="chout-donate">
+						<span class="author">
+							By 
+							<a href="https://profiles.wordpress.org/nmtnguyen56/" target="_blank" rel="noopener noreferrer">
+								Chout
+							</a>
+						</span>
+						<span class="donate">
+							<?php chout_caio_donate_link_html(); ?>
+						</span>
+					</div>
+					
 					<div class="caio-card">
 						<h2><?php esc_html_e( 'AIO Blocklist', 'chout-all-in-one' ); ?></h2>
+						<hr class="hr-h2">
+
 						<p><?php esc_html_e( 'Use the community-provided blacklist to block known malicious IPs automatically.', 'chout-all-in-one' ); ?></p>
 						
 						<label class="caio-switch">
@@ -397,12 +407,14 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 						
 						<div class="caio-aio-list-container" <?php echo $use_aio_ips ? '' : 'style="display:none;"'; ?>>
 							<p><strong><?php esc_html_e( 'AIO Provided IPs (Read-only):', 'chout-all-in-one' ); ?></strong></p>
-							<textarea readonly class="large-text" rows="5"><?php echo esc_textarea( implode( "\n", $aio_ips ) ); ?></textarea>
+							<textarea name="list-block-ips" readonly class="large-text" rows="5"><?php echo esc_textarea( implode( "\n", $aio_ips ) ); ?></textarea>
 						</div>
 					</div>
 
 					<div class="caio-card">
 						<h2><?php esc_html_e( 'Custom IP Blocklist', 'chout-all-in-one' ); ?></h2>
+						<hr class="hr-h2">
+
 						<p><?php esc_html_e( 'Add specific IPs you want to block. You can use full IPs or partial IPs (e.g., 206.189.).', 'chout-all-in-one' ); ?></p>
 						
 						<div class="caio-add-ip-form">
@@ -435,7 +447,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 											<a href="#"><span><?php esc_html_e( 'Date Added', 'chout-all-in-one' ); ?></span><span class="sorting-indicator"></span></a>
 										</th>
 										<th scope="col" class="manage-column"><?php esc_html_e( 'Note', 'chout-all-in-one' ); ?></th>
-										<th scope="col" class="manage-column" style="width: 80px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
+										<th scope="col" class="manage-column" style="width: 90px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
 									</tr>
 								</thead>
 								<tbody id="the-list">
@@ -447,7 +459,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 												<th scope="row" class="check-column">
 													<input type="checkbox" name="ip[]" value="<?php echo esc_attr( $ip ); ?>">
 												</th>
-												<td class="ip-col"><strong><?php echo esc_html( $ip ); ?></strong></td>
+												<td class="ip-col"><?php echo esc_html( $ip ); ?></td>
 												<td class="date-col"><?php echo esc_html( $data['date'] ); ?></td>
 												<td class="note-col"><?php echo esc_html( $data['note'] ); ?></td>
 												<td>

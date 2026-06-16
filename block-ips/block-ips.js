@@ -4,11 +4,11 @@ jQuery(document).ready(function($) {
     const texts = choutAioBlockIps.texts;
 
     function showMessage(msg, isError = false) {
-        const id = isError ? '#caio-error' : '#caio-message';
-        $(id).find('p').text(msg);
-        $(id).show().delay(3000).fadeOut();
-        if(!isError) $('#caio-error').hide();
-        else $('#caio-message').hide();
+        if (typeof caioShowToast === 'function') {
+            caioShowToast(msg, isError);
+        } else {
+            alert(msg);
+        }
     }
 
     // Toggle AIO IPs

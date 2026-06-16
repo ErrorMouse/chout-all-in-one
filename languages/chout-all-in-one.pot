@@ -24,6 +24,9 @@ msgstr ""
 msgid "This post was published at <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> and belongs to <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
 msgstr ""
 
+msgid "All settings updated successfully."
+msgstr ""
+
 msgid "Admin Style"
 msgstr ""
 
@@ -57,10 +60,16 @@ msgstr ""
 msgid "Keywords Everywhere"
 msgstr ""
 
+msgid "Add subtle keyword signals to content."
+msgstr ""
+
 msgid "Automatically add relevant keywords to help content be easier to recognize."
 msgstr ""
 
 msgid "Redirect to Homepage Upon Logout"
+msgstr ""
+
+msgid "Send users back to the homepage after they log out instead of the login screen."
 msgstr ""
 
 msgid "Return users to the homepage after they log out."
@@ -91,9 +100,6 @@ msgid "Changes saved."
 msgstr ""
 
 msgid "Features"
-msgstr ""
-
-msgid "Status"
 msgstr ""
 
 msgid "Customize"
@@ -154,9 +160,6 @@ msgid "Your IP address has been blocked from accessing this website."
 msgstr ""
 
 msgid "Access Denied"
-msgstr ""
-
-msgid "Chout - Block IPs"
 msgstr ""
 
 msgid "Block specific IP addresses from accessing the website, with support for AIO community blocklist."
@@ -222,7 +225,97 @@ msgstr ""
 msgid "Upload CSV"
 msgstr ""
 
+msgid "Enable to update via static JSON (prevents API 403 errors). Disable to update via GitHub API."
+msgstr ""
+
+msgid "Update via JSON"
+msgstr ""
+
 msgid "Upload a CSV file containing IPs (Column 1: IP, Column 2: Note)."
+msgstr ""
+
+msgid "Add Featured Image Column"
+msgstr ""
+
+msgid "Display the featured image thumbnail in the post list."
+msgstr ""
+
+msgid "Featured Image"
+msgstr ""
+
+msgid "Add Media File Size Column"
+msgstr ""
+
+msgid "Display file size column in the Media Library list view."
+msgstr ""
+
+msgid "File Size"
+msgstr ""
+
+msgid "Disable Comments"
+msgstr ""
+
+msgid "Completely disable comments and remove the Comments menu from the dashboard."
+msgstr ""
+
+msgid "Disable Emojis"
+msgstr ""
+
+msgid "Remove WordPress core emoji scripts and styles to improve page loading speed."
+msgstr ""
+
+msgid "Disable jQuery Migrate"
+msgstr ""
+
+msgid "Deregister the jquery-migrate script from the frontend to save bandwidth."
+msgstr ""
+
+msgid "Remove WP Logo From Admin Bar"
+msgstr ""
+
+msgid "Make WordPress dashicons available on the public-facing site."
+msgstr ""
+
+msgid "Remove the WordPress logo menu from the top admin bar."
+msgstr ""
+
+msgid "Allow SVG Files Upload"
+msgstr ""
+
+msgid "Allow administrator users to upload SVG files safely."
+msgstr ""
+
+msgid "Disable XML-RPC"
+msgstr ""
+
+msgid "Completely disable XML-RPC to improve website security and prevent brute force attacks."
+msgstr ""
+
+msgid "Display a reading progress bar at the top or bottom of the screen as users scroll."
+msgstr ""
+
+msgid "Unauthorized user"
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "Scroll Progress Bar Settings"
+msgstr ""
+
+msgid "Bar Color"
+msgstr ""
+
+msgid "Bar Height (px)"
+msgstr ""
+
+msgid "Position"
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+msgid "Bottom"
 msgstr ""
 
 msgid "Please select a CSV file."
@@ -231,3 +324,23 @@ msgstr ""
 msgid "Invalid IP format."
 msgstr ""
 
+msgid "View Demo"
+msgstr ""
+
+msgid "Setting updated successfully."
+msgstr ""
+
+msgid "Error saving setting."
+msgstr ""
+
+msgid "Connection error."
+msgstr ""
+
+msgid "Custom CSS"
+msgstr ""
+
+msgid "When the user scrolls to the target, the "%s" class will be automatically added to the element. You can write the CSS formatting for that class here:"
+msgstr ""
+
+msgid "Toggle All"
+msgstr ""

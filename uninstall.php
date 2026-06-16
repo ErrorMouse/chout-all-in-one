@@ -29,7 +29,14 @@ function chout_aio_delete_settings_updated_transients() {
  */
 function chout_aio_uninstall_site() {
 	delete_option( 'chout_aio_features' );
+	delete_option( 'chout_aio_update_mode' );
+	
+	// Clean up Scroll Add Action data
 	delete_option( 'chout_aio_scroll_add_action_class' );
+	delete_option( 'chout_aio_scroll_add_action_custom_css' );
+	
+	// Clean up Scroll Progress Bar data
+	delete_option( 'chout_aio_scroll_progress_bar' );
 	
 	// Clean up Block IPs data
 	delete_option( 'chout_aio_custom_blocked_ips' );
