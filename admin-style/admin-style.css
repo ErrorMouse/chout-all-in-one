@@ -13,12 +13,12 @@ body.wp-admin {
       margin: 0 !important;
       padding: 20px 0 !important;
    }
-   
+
    div.separator {
       height: 1px !important;
       background: #757575 !important;
    }
-} 
+}
 
 /* Single */
 
@@ -26,12 +26,6 @@ body.wp-admin #editor .edit-post-visual-editor,
 body.block-editor-iframe__body {
    --cl-main: #00a1ff;
    --cl-main-hover: #0066ff;
-   
-   background-color: #FFFFFF;
-
-   h1.wp-block-post-title {
-      font-weight: 600;
-   }
 
    h2:not(.uagb-question),
    h3:not(.uagb-question),
@@ -44,24 +38,25 @@ body.block-editor-iframe__body {
    }
 
    @media (min-width: 576.6px) {
-		
-	   h1.wp-block-post-title {
-		  font-size: 38px;
-	   }
-		
-	   h2 {
-		  font-size: 26px;
-	   }
-	}
 
-	@media (max-width: 576.5px) {
-	   h1.wp-block-post-title {
-		  font-size: 28px;
-	   }
-	   h2 {
-		  font-size: 22px;
-	   }
-	}
+      h1.wp-block-post-title {
+         font-size: 38px;
+      }
+
+      h2 {
+         font-size: 26px;
+      }
+   }
+
+   @media (max-width: 576.5px) {
+      h1.wp-block-post-title {
+         font-size: 28px;
+      }
+
+      h2 {
+         font-size: 22px;
+      }
+   }
 
    h3:not(.uagb-question) {
       padding-left: 30px;
@@ -83,57 +78,8 @@ body.block-editor-iframe__body {
       font-size: 18px;
    }
 
-   p {
-      margin-top: 15px;
-      margin-bottom: 15px;
-	}
-
    p:not(.wp-block-pullquote p):not(.has-text-align-center p):not(.has-text-align-left p):not(.has-text-align-right p):not(.has-text-align-center):not(.has-text-align-left):not(.has-text-align-right) {
       text-align: justify;
-   }
-
-   /* Images */
-
-   figure.wp-block-image img {
-      border-radius: 7px;
-   }
-
-   /* Trich dan */
-
-   .wp-block-pullquote__citation,
-   .wp-block-pullquote cite,
-   .wp-block-pullquote footer {
-      text-transform: uppercase;
-      font-style: unset;
-   }
-
-   .wp-block-quote {
-      display: table;
-      width: 100%;
-      margin: 0 auto;
-      padding: 1em;
-      background-color: #FEF1E4;
-      border-left: 5px solid var(--cl-main-hover);
-   }
-
-   .wp-block-quote cite {
-      font-size: 15px;
-   }
-
-   .wp-block-pullquote {
-      padding: 30px 0;
-      border-top: 5px solid var(--cl-main);
-      border-bottom: 5px solid var(--cl-main);
-
-      p {
-         font-size: 22px;
-         line-height: inherit;
-      }
-
-      cite {
-         font-size: 20px;
-         line-height: inherit;
-      }
    }
 
    /* Chu viet hoa - Thut dong ky tu dau tien */
