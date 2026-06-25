@@ -1,0 +1,346 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chout - All in One 1.1.2\n"
+"Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
+"POT-Creation-Date: 2026-06-10 00:00+0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Codex\n"
+"X-Domain: chout-all-in-one\n"
+
+msgid "Chout - All in One"
+msgstr ""
+
+msgid "A single control panel for enabling small website features only when you need them."
+msgstr ""
+
+msgid "Chout"
+msgstr ""
+
+msgid "This post was published at <a href=\"%1$s\" rel=\"dofollow\">%1$s</a> and belongs to <a href=\"%1$s\" rel=\"dofollow\">%2$s</a>."
+msgstr ""
+
+msgid "All settings updated successfully."
+msgstr ""
+
+msgid "Admin Style"
+msgstr ""
+
+msgid "Refine the admin and editing interfaces to make content easier to read and manage."
+msgstr ""
+
+msgid "Add Signature to RSS"
+msgstr ""
+
+msgid "Add a source identifier to content distributed via RSS."
+msgstr ""
+
+msgid "Block WP-Admin Area from Non-Administrators"
+msgstr ""
+
+msgid "Keep the admin area limited to users with website management privileges."
+msgstr ""
+
+msgid "Disable Search & Redirect to Home"
+msgstr ""
+
+msgid "Disable site search and redirect visitors to the homepage when they attempt a search."
+msgstr ""
+
+msgid "Display Dashicons"
+msgstr ""
+
+msgid "Display familiar WordPress icons on the public-facing site."
+msgstr ""
+
+msgid "Keywords Everywhere"
+msgstr ""
+
+msgid "Add subtle keyword signals to content."
+msgstr ""
+
+msgid "Automatically add relevant keywords to help content be easier to recognize."
+msgstr ""
+
+msgid "Redirect to Homepage Upon Logout"
+msgstr ""
+
+msgid "Send users back to the homepage after they log out instead of the login screen."
+msgstr ""
+
+msgid "Return users to the homepage after they log out."
+msgstr ""
+
+msgid "Scroll Add Action"
+msgstr ""
+
+msgid "Create a state-change effect for content as visitors scroll."
+msgstr ""
+
+msgid "Snow Effect"
+msgstr ""
+
+msgid "Add a gentle snowfall effect to your website for seasonal decoration."
+msgstr ""
+
+msgid "Slick Custom"
+msgstr ""
+
+msgid "Add support for displaying content in slideshow format on the website."
+msgstr ""
+
+msgid "You do not have permission to access this page."
+msgstr ""
+
+msgid "Changes saved."
+msgstr ""
+
+msgid "Features"
+msgstr ""
+
+msgid "Customize"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Save Changes"
+msgstr ""
+
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "CSS class"
+msgstr ""
+
+msgid "Enter the class name to track, without the leading dot."
+msgstr ""
+
+msgid "Are you sure you want to delete the selected IP(s)?"
+msgstr ""
+
+msgid "An error occurred. Please try again."
+msgstr ""
+
+msgid "Please enter an IP address."
+msgstr ""
+
+msgid "Unauthorized"
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "IP cannot be empty."
+msgstr ""
+
+msgid "IP already exists."
+msgstr ""
+
+msgid "IP added successfully."
+msgstr ""
+
+msgid "No IPs selected."
+msgstr ""
+
+msgid "IPs deleted successfully."
+msgstr ""
+
+msgid "Invalid action."
+msgstr ""
+
+msgid "Your IP address has been blocked from accessing this website."
+msgstr ""
+
+msgid "Access Denied"
+msgstr ""
+
+msgid "Block specific IP addresses from accessing the website, with support for AIO community blocklist."
+msgstr ""
+
+msgid "AIO Blocklist"
+msgstr ""
+
+msgid "Use the community-provided blacklist to block known malicious IPs automatically."
+msgstr ""
+
+msgid "Use the IP address list detected by AIO."
+msgstr ""
+
+msgid "AIO Provided IPs (Read-only):"
+msgstr ""
+
+msgid "Custom IP Blocklist"
+msgstr ""
+
+msgid "Add specific IPs you want to block. You can use full IPs or partial IPs (e.g., 206.189.)."
+msgstr ""
+
+msgid "IP Address"
+msgstr ""
+
+msgid "Note (Optional)"
+msgstr ""
+
+msgid "Add IP"
+msgstr ""
+
+msgid "Delete Selected"
+msgstr ""
+
+msgid "Search IPs..."
+msgstr ""
+
+msgid "Date Added"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "No IPs added yet."
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "File upload failed."
+msgstr ""
+
+msgid "Successfully added %d IPs from CSV."
+msgstr ""
+
+msgid "No new IPs found or added from the CSV file."
+msgstr ""
+
+msgid "Upload CSV"
+msgstr ""
+
+msgid "Enable to update via static JSON (prevents API 403 errors). Disable to update via GitHub API."
+msgstr ""
+
+msgid "Update via JSON"
+msgstr ""
+
+msgid "Upload a CSV file containing IPs (Column 1: IP, Column 2: Note)."
+msgstr ""
+
+msgid "Add Featured Image Column"
+msgstr ""
+
+msgid "Display the featured image thumbnail in the post list."
+msgstr ""
+
+msgid "Featured Image"
+msgstr ""
+
+msgid "Add Media File Size Column"
+msgstr ""
+
+msgid "Display file size column in the Media Library list view."
+msgstr ""
+
+msgid "File Size"
+msgstr ""
+
+msgid "Disable Comments"
+msgstr ""
+
+msgid "Completely disable comments and remove the Comments menu from the dashboard."
+msgstr ""
+
+msgid "Disable Emojis"
+msgstr ""
+
+msgid "Remove WordPress core emoji scripts and styles to improve page loading speed."
+msgstr ""
+
+msgid "Disable jQuery Migrate"
+msgstr ""
+
+msgid "Deregister the jquery-migrate script from the frontend to save bandwidth."
+msgstr ""
+
+msgid "Remove WP Logo From Admin Bar"
+msgstr ""
+
+msgid "Make WordPress dashicons available on the public-facing site."
+msgstr ""
+
+msgid "Remove the WordPress logo menu from the top admin bar."
+msgstr ""
+
+msgid "Allow SVG Files Upload"
+msgstr ""
+
+msgid "Allow administrator users to upload SVG files safely."
+msgstr ""
+
+msgid "Disable XML-RPC"
+msgstr ""
+
+msgid "Completely disable XML-RPC to improve website security and prevent brute force attacks."
+msgstr ""
+
+msgid "Display a reading progress bar at the top or bottom of the screen as users scroll."
+msgstr ""
+
+msgid "Unauthorized user"
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "Scroll Progress Bar Settings"
+msgstr ""
+
+msgid "Bar Color"
+msgstr ""
+
+msgid "Bar Height (px)"
+msgstr ""
+
+msgid "Position"
+msgstr ""
+
+msgid "Top"
+msgstr ""
+
+msgid "Bottom"
+msgstr ""
+
+msgid "Please select a CSV file."
+msgstr ""
+
+msgid "Invalid IP format."
+msgstr ""
+
+msgid "View Demo"
+msgstr ""
+
+msgid "Setting updated successfully."
+msgstr ""
+
+msgid "Error saving setting."
+msgstr ""
+
+msgid "Connection error."
+msgstr ""
+
+msgid "Custom CSS"
+msgstr ""
+
+msgid "When the user scrolls to the target, the "%s" class will be automatically added to the element. You can write the CSS formatting for that class here:"
+msgstr ""
+
+msgid "Toggle All"
+msgstr ""
