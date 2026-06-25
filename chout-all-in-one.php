@@ -78,10 +78,12 @@ add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_caio_updat
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
 		const VERSION         = '1.1.2';
+		const OPTION_VERSION  = 'chout_aio_db_version';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';
 
 		public static function init() {
+			add_action( 'admin_init', array( __CLASS__, 'upgrade_routine' ) );
 			add_action( 'init', array( __CLASS__, 'load_enabled_features' ), 0 );
 			add_action( 'admin_menu', array( __CLASS__, 'register_admin_menu' ) );
 			add_action( 'admin_post_chout_aio_save_features', array( __CLASS__, 'save_features' ) ); // Keep for fallback
@@ -89,6 +91,35 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 			add_action( 'wp_ajax_chout_aio_toggle_all_features', array( __CLASS__, 'ajax_toggle_all_features' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'add_settings_link' ) );
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_styles' ) );
+		}
+
+		public static function upgrade_routine() {
+			$db_version = get_option( self::OPTION_VERSION, '1.0.0' );
+			
+			if ( version_compare( $db_version, self::VERSION, '<' ) ) {
+				// Upgrade to 1.1.2: Remove old Block IPs .htaccess rules completely
+				if ( version_compare( $db_version, '1.1.2', '<' ) ) {
+					require_once ABSPATH . 'wp-admin/includes/misc.php';
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					$htaccess_file = get_home_path() . '.htaccess';
+					
+					if ( file_exists( $htaccess_file ) && wp_is_writable( $htaccess_file ) ) {
+						// 1. Ask WP to clear the inner content
+						insert_with_markers( $htaccess_file, 'Chout_AIO_Block_IPs', array() );
+						
+						// 2. Force remove the empty # BEGIN and # END marker tags left behind
+						$content = file_get_contents( $htaccess_file );
+						if ( false !== $content ) {
+							$content = preg_replace( '/# BEGIN Chout_AIO_Block_IPs.*?# END Chout_AIO_Block_IPs\n?/s', '', $content );
+							// Clean up triple newlines caused by deletion
+							$content = preg_replace( "/\n{3,}/", "\n\n", $content );
+							file_put_contents( $htaccess_file, $content );
+						}
+					}
+				}
+				
+				update_option( self::OPTION_VERSION, self::VERSION );
+			}
 		}
 
 		public static function enqueue_admin_styles( $hook_suffix ) {
