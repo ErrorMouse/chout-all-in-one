@@ -71,7 +71,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 					if ( $use_aio ) {
 						self::fetch_aio_ips( true ); // force fetch
 					}
-					self::update_htaccess();
+					self::update_blocklist_file();
 					wp_send_json_success( array( 'message' => __( 'Settings saved.', 'chout-all-in-one' ) ) );
 					break;
 
@@ -101,7 +101,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 						'note' => $note,
 					);
 					update_option( self::OPTION_CUSTOM_IPS, $custom_ips, false );
-					self::update_htaccess();
+					self::update_blocklist_file();
 					wp_send_json_success( array( 'message' => __( 'IP added successfully.', 'chout-all-in-one' ) ) );
 					break;
 
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 					if ( $changed ) {
 						update_option( self::OPTION_CUSTOM_IPS, $custom_ips, false );
-						self::update_htaccess();
+						self::update_blocklist_file();
 					}
 					wp_send_json_success( array( 'message' => __( 'IPs deleted successfully.', 'chout-all-in-one' ) ) );
 					break;
@@ -182,7 +182,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 					if ( $added > 0 ) {
 						update_option( self::OPTION_CUSTOM_IPS, $custom_ips, false );
-						self::update_htaccess();
+						self::update_blocklist_file();
 						/* translators: %d: number of IPs added */
 						wp_send_json_success( array( 'message' => sprintf( __( 'Successfully added %d IPs from CSV.', 'chout-all-in-one' ), $added ) ) );
 					} else {
@@ -229,7 +229,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 			$ips = array_unique( $ips );
 			set_transient( self::TRANSIENT_AIO_IPS, $ips, DAY_IN_SECONDS );
-			self::update_htaccess(); // Update htaccess when fetched new list
+			self::update_blocklist_file(); // Update blocklist when fetched new list
 			return $ips;
 		}
 
@@ -306,7 +306,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 		// --- Core Blocking Logic ---
 
 		public static function check_and_block_ip() {
-			// Do not block in CLI or admin (optional: maybe block admin too? Usually safer to allow admin or check specific roles, but for true IP block it should block everywhere. Let's block everywhere except maybe allow bypass if we can't reliably get IP).
+			// Do not block in CLI
 			if ( wp_is_cli() ) {
 				return;
 			}
@@ -316,51 +316,73 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				return;
 			}
 
-			$blocked_ips = self::get_all_blocked_ips();
-			if ( empty( $blocked_ips ) ) {
+			$upload_dir = wp_upload_dir();
+			$file_path  = $upload_dir['basedir'] . '/chout-aio-blocked-ips.php';
+
+			if ( ! file_exists( $file_path ) ) {
 				return;
 			}
 
-			foreach ( $blocked_ips as $blocked_ip ) {
-				// Direct match or partial match (for e.g., 206.189.)
-				if ( $user_ip === $blocked_ip || strpos( $user_ip, $blocked_ip ) === 0 ) {
-					wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+			$blocked_ips = require $file_path;
+
+			if ( empty( $blocked_ips ) || ! is_array( $blocked_ips ) ) {
+				return;
+			}
+
+			// 1. Check exact match
+			if ( isset( $blocked_ips[ $user_ip ] ) ) {
+				wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+			}
+
+			// 2. Check partial match (IPv4)
+			if ( strpos( $user_ip, '.' ) !== false ) {
+				$parts = explode( '.', $user_ip );
+				$check_ip = '';
+				foreach ( $parts as $part ) {
+					$check_ip .= $part . '.';
+					if ( isset( $blocked_ips[ $check_ip ] ) ) {
+						wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+					}
+				}
+			} 
+			// 3. Check partial match (IPv6)
+			elseif ( strpos( $user_ip, ':' ) !== false ) {
+				$parts = explode( ':', $user_ip );
+				$check_ip = '';
+				foreach ( $parts as $part ) {
+					$check_ip .= $part . ':';
+					if ( isset( $blocked_ips[ $check_ip ] ) ) {
+						wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+					}
 				}
 			}
 		}
 
-		public static function update_htaccess() {
-			require_once ABSPATH . 'wp-admin/includes/misc.php';
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-
-			$htaccess_file = get_home_path() . '.htaccess';
+		public static function update_blocklist_file() {
+			// 1. Generate new PHP blocklist file
+			$upload_dir = wp_upload_dir();
+			$file_path  = $upload_dir['basedir'] . '/chout-aio-blocked-ips.php';
 			
-			// Only update if htaccess is writable or we can create it
-			if ( ( file_exists( $htaccess_file ) && wp_is_writable( $htaccess_file ) ) || wp_is_writable( dirname( $htaccess_file ) ) ) {
-				$blocked_ips = self::get_all_blocked_ips();
-				$rules       = array();
+			$blocked_ips = self::get_all_blocked_ips();
+			$export_data = array();
 
-				if ( ! empty( $blocked_ips ) ) {
-					$rules[] = '<IfModule mod_authz_core.c>';
-					$rules[] = '    <RequireAll>';
-					$rules[] = '        Require all granted';
-					foreach ( $blocked_ips as $ip ) {
-						// Apache 2.4 "Require ip" prefers partial IPs without trailing dot (e.g. 10.1 instead of 10.1.)
-						$clean_ip = rtrim( $ip, '.' );
-						$rules[] = '        Require not ip ' . $clean_ip;
-					}
-					$rules[] = '    </RequireAll>';
-					$rules[] = '</IfModule>';
-					$rules[] = '<IfModule !mod_authz_core.c>';
-					$rules[] = '    Order Allow,Deny';
-					$rules[] = '    Allow from all';
-					foreach ( $blocked_ips as $ip ) {
-						$rules[] = '    Deny from ' . $ip;
-					}
-					$rules[] = '</IfModule>';
-				}
+			foreach ( $blocked_ips as $ip ) {
+				// We don't need the values, just the keys for fast O(1) isset() lookup
+				$export_data[ $ip ] = 1;
+			}
 
-				insert_with_markers( $htaccess_file, 'Chout_AIO_Block_IPs', $rules );
+			WP_Filesystem();
+			global $wp_filesystem;
+
+			$file_content  = "<?php\n";
+			$file_content .= "// Auto-generated by Chout All in One. Do not edit directly.\n";
+			$file_content .= "if ( ! defined( 'ABSPATH' ) ) exit;\n";
+			$file_content .= "return " . var_export( $export_data, true ) . ";\n";
+
+			if ( $wp_filesystem ) {
+				$wp_filesystem->put_contents( $file_path, $file_content, FS_CHMOD_FILE );
+			} else {
+				file_put_contents( $file_path, $file_content );
 			}
 		}
 
