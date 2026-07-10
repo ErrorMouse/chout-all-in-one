@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.1.2
+ * Version:           1.1.3
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
@@ -77,7 +77,7 @@ add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_caio_updat
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
-		const VERSION         = '1.1.2';
+		const VERSION         = '1.1.3';
 		const OPTION_VERSION  = 'chout_aio_db_version';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';
@@ -97,8 +97,8 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 			$db_version = get_option( self::OPTION_VERSION, '1.0.0' );
 			
 			if ( version_compare( $db_version, self::VERSION, '<' ) ) {
-				// Upgrade to 1.1.2: Remove old Block IPs .htaccess rules completely
-				if ( version_compare( $db_version, '1.1.2', '<' ) ) {
+				// Upgrade to 1.1.3: Remove old Block IPs .htaccess rules completely
+				if ( version_compare( $db_version, '1.1.3', '<' ) ) {
 					require_once ABSPATH . 'wp-admin/includes/misc.php';
 					require_once ABSPATH . 'wp-admin/includes/file.php';
 					$htaccess_file = get_home_path() . '.htaccess';

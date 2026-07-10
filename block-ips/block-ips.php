@@ -291,7 +291,11 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			
 			// IPv6
 			if ( strpos( $ip, ':' ) !== false ) {
-				return rtrim( $ip, ':' ); // Remove trailing colon if any, just in case
+				$ip = rtrim( $ip, ':' ); // Remove trailing colon if any, just in case
+				if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
+					return $ip; // Full IP
+				}
+				return $ip . ':'; // Partial IP
 			}
 			
 			// IPv4
@@ -371,6 +375,9 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				$export_data[ $ip ] = 1;
 			}
 
+			if ( ! function_exists( 'WP_Filesystem' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+			}
 			WP_Filesystem();
 			global $wp_filesystem;
 
