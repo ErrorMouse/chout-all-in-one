@@ -15,7 +15,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			add_action( 'wp_ajax_chout_aio_block_ips_action', array( __CLASS__, 'ajax_handler' ) );
 			
 			// Block via PHP as fallback for Nginx/IIS
-			add_action( 'init', array( __CLASS__, 'check_and_block_ip' ), 0 );
+			add_action( 'init', array( __CLASS__, 'check_and_block_ip' ), 1 );
 			
 			// Schedule cron to update AIO list daily if enabled
 			if ( ! wp_next_scheduled( 'chout_aio_daily_ip_update' ) ) {
@@ -311,7 +311,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 		public static function check_and_block_ip() {
 			// Do not block in CLI
-			if ( wp_is_cli() ) {
+			if ( ( defined( 'WP_CLI' ) && WP_CLI ) || ( function_exists( 'wp_is_cli' ) && wp_is_cli() ) || php_sapi_name() === 'cli' ) {
 				return;
 			}
 

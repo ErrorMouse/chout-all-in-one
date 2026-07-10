@@ -60,6 +60,7 @@ Open the Chout AIO settings screen. When an enabled feature has its own settings
 
 * Fix: Resolved a fatal error when adding IP addresses manually or toggling the AIO list.
 * Fix: Corrected the partial matching logic for IPv6 addresses to ensure accurate blocking.
+* Fix: Addressed a WordPress core hook priority issue that caused the block function to be completely skipped on page load.
 
 = 1.1.2 =
 
