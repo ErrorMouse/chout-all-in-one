@@ -476,7 +476,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 											<a href="#"><span><?php esc_html_e( 'Date Added', 'chout-all-in-one' ); ?></span><span class="sorting-indicator"></span></a>
 										</th>
 										<th scope="col" class="manage-column"><?php esc_html_e( 'Note', 'chout-all-in-one' ); ?></th>
-										<th scope="col" class="manage-column" style="width: 90px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
+										<th scope="col" class="manage-column" style="width: 100px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
 									</tr>
 								</thead>
 								<tbody id="the-list">

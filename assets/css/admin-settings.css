@@ -127,6 +127,7 @@ body {
             }
 
             tbody td {
+                text-align: left;
                 vertical-align: middle;
 
                 label {
@@ -172,6 +173,10 @@ body {
         a:focus,
         select:focus {
             box-shadow: none;
+        }
+
+        input {
+            margin: 0;
         }
 
         input[type=checkbox]:checked {
