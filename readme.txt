@@ -4,7 +4,7 @@ Tags:               admin, effects, security, seo, style
 Requires at least:  5.2
 Tested up to:       7.0
 Requires PHP:       7.4
-Stable tag:         1.1.3
+Stable tag:         1.1.4
 License:            GPLv2 or later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,10 @@ No. All features are turned off by default so you can choose only what you need.
 Open the Chout AIO settings screen. When an enabled feature has its own settings, a Customize button appears next to it.
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Change the SVG file upload mechanism.
 
 = 1.1.3 =
 
