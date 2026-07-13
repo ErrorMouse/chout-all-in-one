@@ -4,7 +4,7 @@ Tags:               admin, effects, security, seo, style
 Requires at least:  5.2
 Tested up to:       7.0
 Requires PHP:       7.4
-Stable tag:         1.1.4
+Stable tag:         1.1.5
 License:            GPLv2 or later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,12 +56,9 @@ Open the Chout AIO settings screen. When an enabled feature has its own settings
 
 == Changelog ==
 
-= 1.1.4 =
+= 1.1.5 =
 
 * Change the SVG file upload mechanism.
-
-= 1.1.3 =
-
 * Fix: Resolved a fatal error when adding IP addresses manually or toggling the AIO list.
 * Fix: Corrected the partial matching logic for IPv6 addresses to ensure accurate blocking.
 * Fix: Addressed a WordPress core hook priority issue that caused the block function to be completely skipped on page load.
