@@ -26,6 +26,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 		public static function force_fetch_aio_ips_cron() {
 			self::fetch_aio_ips( true );
+			self::update_blocklist_file();
 		}
 
 		public static function enqueue_assets( $hook_suffix ) {
@@ -66,7 +67,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 			switch ( $type ) {
 				case 'save_aio_setting':
-					$use_aio = isset( $_POST['use_aio'] ) ? (bool) $_POST['use_aio'] : false;
+					$use_aio = isset( $_POST['use_aio'] ) ? filter_var( wp_unslash( $_POST['use_aio'] ), FILTER_VALIDATE_BOOLEAN ) : false;
 					update_option( self::OPTION_USE_AIO_IPS, $use_aio, false );
 					if ( $use_aio ) {
 						self::fetch_aio_ips( true ); // force fetch
@@ -212,12 +213,14 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				return $cached;
 			}
 
-			$response = wp_remote_get( self::AIO_IPS_URL, array( 'timeout' => 10 ) );
+			$response = wp_remote_get( self::AIO_IPS_URL, array( 'timeout' => 15 ) );
 			if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 				return is_array( $cached ) ? $cached : array(); // Fallback to cache if request fails
 			}
 
 			$body = wp_remote_retrieve_body( $response );
+			// Normalize line endings to prevent hidden characters
+			$body = str_replace( array( "\r\n", "\r" ), "\n", $body );
 			$lines = explode( "\n", $body );
 			$ips   = array();
 			foreach ( $lines as $line ) {
@@ -229,7 +232,6 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 			$ips = array_unique( $ips );
 			set_transient( self::TRANSIENT_AIO_IPS, $ips, DAY_IN_SECONDS );
-			self::update_blocklist_file(); // Update blocklist when fetched new list
 			return $ips;
 		}
 
@@ -237,11 +239,22 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			if ( ! get_option( self::OPTION_USE_AIO_IPS, false ) ) {
 				return array();
 			}
+			
+			static $runtime_ips = null;
+			if ( $runtime_ips !== null ) {
+				return $runtime_ips;
+			}
+			
 			$ips = get_transient( self::TRANSIENT_AIO_IPS );
 			if ( false === $ips ) {
-				return self::fetch_aio_ips();
+				$ips = self::fetch_aio_ips();
+				$runtime_ips = is_array( $ips ) ? $ips : array();
+				self::update_blocklist_file(); // Update blocklist when transient expires and we fetch
+				return $runtime_ips;
 			}
-			return is_array( $ips ) ? $ips : array();
+			
+			$runtime_ips = is_array( $ips ) ? $ips : array();
+			return $runtime_ips;
 		}
 
 		public static function get_all_blocked_ips() {
