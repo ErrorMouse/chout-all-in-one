@@ -17,11 +17,32 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			// Block via PHP as fallback for Nginx/IIS
 			add_action( 'init', array( __CLASS__, 'check_and_block_ip' ), 1 );
 			
-			// Schedule cron to update AIO list daily if enabled
-			if ( ! wp_next_scheduled( 'chout_aio_daily_ip_update' ) ) {
-				wp_schedule_event( time(), 'daily', 'chout_aio_daily_ip_update' );
+			// Register custom cron schedule: every 6 hours
+			add_filter( 'cron_schedules', array( __CLASS__, 'add_cron_schedules' ) );
+			
+			// Reschedule if previously registered with a different interval
+			$next = wp_next_scheduled( 'chout_aio_daily_ip_update' );
+			if ( $next ) {
+				$schedules = wp_get_schedules();
+				$event     = wp_get_scheduled_event( 'chout_aio_daily_ip_update' );
+				if ( $event && isset( $event->schedule ) && $event->schedule !== 'sixhourly' ) {
+					wp_unschedule_event( $next, 'chout_aio_daily_ip_update' );
+					wp_schedule_event( time(), 'sixhourly', 'chout_aio_daily_ip_update' );
+				}
+			} else {
+				wp_schedule_event( time(), 'sixhourly', 'chout_aio_daily_ip_update' );
 			}
 			add_action( 'chout_aio_daily_ip_update', array( __CLASS__, 'force_fetch_aio_ips_cron' ) );
+		}
+
+		public static function add_cron_schedules( $schedules ) {
+			if ( ! isset( $schedules['sixhourly'] ) ) {
+				$schedules['sixhourly'] = array(
+					'interval' => 6 * HOUR_IN_SECONDS,
+					'display'  => __( 'Every 6 Hours', 'chout-all-in-one' ),
+				);
+			}
+			return $schedules;
 		}
 
 		public static function force_fetch_aio_ips_cron() {
@@ -231,7 +252,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			}
 
 			$ips = array_unique( $ips );
-			set_transient( self::TRANSIENT_AIO_IPS, $ips, DAY_IN_SECONDS );
+			set_transient( self::TRANSIENT_AIO_IPS, $ips, 6 * HOUR_IN_SECONDS );
 			return $ips;
 		}
 
