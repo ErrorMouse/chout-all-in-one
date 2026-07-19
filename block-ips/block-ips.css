@@ -71,7 +71,8 @@
             text-align: right;
         }
 
-        #caio_search_ip {
+        #caio_search_ip,
+        #caio_search_history {
             margin-left: auto;
         }
 
@@ -79,12 +80,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
             width: 100%;
             margin-top: 20px;
         }
 
-        #caio_ips_table {
-            min-width: 600px;
+        #caio_ips_table,
+        #caio_history_table {
+            min-width: 800px;
             margin-top: 20px;
             background-color: var(--color-bg-4);
             border: 1px solid var(--color-bg-2);
@@ -132,7 +135,8 @@
                 content: "\f140";
             }
 
-            .ip-col {
+            .ip-col,
+            .history-ip-col {
                 font-size: 14px;
                 color: var(--color-text-1);
             }
@@ -150,6 +154,102 @@
             td {
                 padding: 15px;
                 vertical-align: middle;
+            }
+
+            .hide .history-ip-col {
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            .hide .history-url-col {
+
+                .hide-text {
+                    flex-wrap: nowrap;
+                    flex-direction: row;
+                    align-items: center;
+                }
+            } 
+            
+            .history-url-col {
+
+                .hide-text {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 10px;
+                }
+
+                strong {
+                    color: var(--color-text-3);
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+
+                .caio-ua-toggle {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 28px;
+                    height: 28px;
+                    flex: 0 0 28px;
+                    padding: 0;
+                    background: transparent;
+                    border: none;
+                    border-radius: 6px;
+                    color: var(--color-text-3);
+                    cursor: pointer;
+                    vertical-align: middle;
+                    transition: color 0.2s, background 0.2s;
+
+                    &:hover {
+                        background: rgba(0, 161, 255, 0.1);
+                        color: var(--color-main-1);
+                    }
+
+                    &[aria-expanded="true"] {
+                        color: var(--color-main-1);
+                    }
+
+                    .dashicons {
+                        width: 16px;
+                        height: 16px;
+                        font-size: 16px;
+                        line-height: 1;
+                    }
+                }
+
+                .caio-url-text,
+                .caio-ua-text {
+                    display: block;
+                    font-size: 11px;
+                    line-height: 1.5;
+                    white-space: normal;
+                    word-break: break-word;
+                }
+
+                .caio-url-text {
+                    vertical-align: middle;
+                    
+                    span {
+                        display: inline;
+                    }
+                }
+            }
+
+            .hide .caio-url-text {
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+
+                span {
+                    display: none;
+                }
+            }
+
+            .hide .caio-ua-text {
+                display: none;
             }
         } 
     }

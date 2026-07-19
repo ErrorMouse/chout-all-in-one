@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Chout - All in One 1.1.5\n"
+"Project-Id-Version: Chout - All in One 1.1.7\n"
 "Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
 "POT-Creation-Date: 2026-06-10 00:00+0700\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "Invalid action."
 msgstr ""
 
-msgid "Your IP address has been blocked from accessing this website."
+msgid "You have been blocked from accessing this website."
 msgstr ""
 
 msgid "Access Denied"
@@ -343,4 +343,46 @@ msgid "When the user scrolls to the target, the "%s" class will be automatically
 msgstr ""
 
 msgid "Toggle All"
+msgstr ""
+
+msgid "Block History"
+msgstr ""
+
+msgid "Records blocked access attempts. Up to 1,000 most recent entries are stored."
+msgstr ""
+
+msgid "Clear All"
+msgstr ""
+
+msgid "Search history..."
+msgstr ""
+
+msgid "Blocked IP"
+msgstr ""
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Accessed"
+msgstr ""
+
+msgid "No block history yet."
+msgstr ""
+
+msgid "Block history cleared."
+msgstr ""
+
+msgid "History entries deleted."
+msgstr ""
+
+msgid "Are you sure you want to clear all block history? This cannot be undone."
+msgstr ""
+
+msgid "Are you sure you want to delete the selected history entries?"
+msgstr ""
+
+msgid "No entries selected."
+msgstr ""
+
+msgid "Total:"
 msgstr ""

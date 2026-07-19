@@ -41,6 +41,7 @@ function chout_aio_uninstall_site() {
 	// Clean up Block IPs data
 	delete_option( 'chout_aio_custom_blocked_ips' );
 	delete_option( 'chout_aio_use_aio_ips' );
+	delete_option( 'chout_aio_block_history' );
 	delete_transient( 'chout_aio_github_blocked_ips' );
 
 	// Remove generated PHP hash file

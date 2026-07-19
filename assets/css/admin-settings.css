@@ -73,7 +73,7 @@ body {
 
         h1 {
             margin-bottom: 5px;
-            color: var(--color-text-3);
+            color: var(--color-main-2);
             font-size: 30px;
             line-height: 1.5;
             text-align: center;
@@ -283,7 +283,7 @@ body {
             }
 
             a {
-                color: var(--color-main-1);
+                color: var(--color-text-1);
                 text-decoration: none;
             }
 
@@ -374,10 +374,6 @@ body {
 /* Settings Page ------------------------------------------- */
 
 #chout-all-in-one {
-
-    h1 {
-        color: var(--color-main-2);
-    }
 
     .caio-features-flex {
         display: flex;
@@ -493,7 +489,7 @@ body {
 }
 
 
-/* Chout - Scroll Progress Bar ------------------------------------------- */
+/* Scroll Progress Bar ------------------------------------------- */
 
 #chout-aio-scroll-progress-bar form {
     width: 250px;
@@ -502,7 +498,7 @@ body {
 }
 
 
-/* Chout - Scroll Add Action ------------------------------------------- */
+/* Scroll Add Action ------------------------------------------- */
 
 #chout-aio-scroll-add-action {
     textarea {

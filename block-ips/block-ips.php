@@ -5,17 +5,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 	final class Chout_AIO_Block_IPs {
-		const OPTION_CUSTOM_IPS  = 'chout_aio_custom_blocked_ips';
-		const OPTION_USE_AIO_IPS = 'chout_aio_use_aio_ips';
-		const TRANSIENT_AIO_IPS  = 'chout_aio_github_blocked_ips';
-		const AIO_IPS_URL        = 'https://raw.githubusercontent.com/ErrorMouse/chout-all-in-one/refs/heads/main/List-Block-IPs.txt';
+		const OPTION_CUSTOM_IPS    = 'chout_aio_custom_blocked_ips';
+		const OPTION_USE_AIO_IPS   = 'chout_aio_use_aio_ips';
+		const TRANSIENT_AIO_IPS    = 'chout_aio_github_blocked_ips';
+		const AIO_IPS_URL          = 'https://raw.githubusercontent.com/ErrorMouse/chout-all-in-one/refs/heads/main/List-Block-IPs.txt';
+		const OPTION_BLOCK_HISTORY = 'chout_aio_block_history';
+		const MAX_HISTORY_RECORDS  = 1000;
 
 		public static function init() {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'wp_ajax_chout_aio_block_ips_action', array( __CLASS__, 'ajax_handler' ) );
 			
-			// Block via PHP as fallback for Nginx/IIS
-			add_action( 'init', array( __CLASS__, 'check_and_block_ip' ), 1 );
+			// Block early, before other plugins like Wordfence (if running in standard mode)
+			add_action( 'plugins_loaded', array( __CLASS__, 'check_and_block_ip' ), -9998 );
 			
 			// Register custom cron schedule: every 6 hours
 			add_filter( 'cron_schedules', array( __CLASS__, 'add_cron_schedules' ) );
@@ -56,8 +58,8 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				return;
 			}
 
-			wp_enqueue_style( 'chout-aio-block-ips', plugin_dir_url( __FILE__ ) . 'block-ips.css', array(), '1.0', 'all' );
-			wp_enqueue_script( 'chout-aio-block-ips-script', plugin_dir_url( __FILE__ ) . 'block-ips.js', array( 'jquery' ), '1.0', true );
+			wp_enqueue_style( 'chout-aio-block-ips', plugin_dir_url( __FILE__ ) . 'block-ips.css', array(), Chout_AIO::VERSION, 'all' );
+			wp_enqueue_script( 'chout-aio-block-ips-script', plugin_dir_url( __FILE__ ) . 'block-ips.js', array( 'jquery' ), Chout_AIO::VERSION, true );
 			
 			wp_localize_script(
 				'chout-aio-block-ips-script',
@@ -66,10 +68,12 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
 					'nonce'    => wp_create_nonce( 'chout_aio_block_ips_nonce' ),
 					'texts'    => array(
-						'confirm_delete' => __( 'Are you sure you want to delete the selected IP(s)?', 'chout-all-in-one' ),
-						'error'          => __( 'An error occurred. Please try again.', 'chout-all-in-one' ),
-						'empty_ip'       => __( 'Please enter an IP address.', 'chout-all-in-one' ),
-						'empty_file'     => __( 'Please select a CSV file.', 'chout-all-in-one' ),
+						'confirm_delete'         => __( 'Are you sure you want to delete the selected IP(s)?', 'chout-all-in-one' ),
+						'confirm_clear_history'  => __( 'Are you sure you want to clear all block history? This cannot be undone.', 'chout-all-in-one' ),
+						'confirm_delete_history' => __( 'Are you sure you want to delete the selected history entries?', 'chout-all-in-one' ),
+						'error'                  => __( 'An error occurred. Please try again.', 'chout-all-in-one' ),
+						'empty_ip'               => __( 'Please enter an IP address.', 'chout-all-in-one' ),
+						'empty_file'             => __( 'Please select a CSV file.', 'chout-all-in-one' ),
 					),
 				)
 			);
@@ -212,6 +216,34 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 					}
 					break;
 
+				case 'get_block_history':
+					$history = self::get_block_history();
+					wp_send_json_success( array( 'history' => $history ) );
+					break;
+
+				case 'clear_block_history':
+					update_option( self::OPTION_BLOCK_HISTORY, array(), false );
+					wp_send_json_success( array( 'message' => __( 'Block history cleared.', 'chout-all-in-one' ) ) );
+					break;
+
+				case 'delete_history_entries':
+					$indexes = isset( $_POST['indexes'] ) ? array_map( 'intval', wp_unslash( $_POST['indexes'] ) ) : array();
+					if ( empty( $indexes ) ) {
+						wp_send_json_error( array( 'message' => __( 'No entries selected.', 'chout-all-in-one' ) ) );
+					}
+
+					$history = self::get_block_history();
+					foreach ( $indexes as $index ) {
+						if ( isset( $history[ $index ] ) ) {
+							unset( $history[ $index ] );
+						}
+					}
+					// Re-index
+					$history = array_values( $history );
+					update_option( self::OPTION_BLOCK_HISTORY, $history, false );
+					wp_send_json_success( array( 'message' => __( 'History entries deleted.', 'chout-all-in-one' ) ) );
+					break;
+
 				default:
 					wp_send_json_error( array( 'message' => __( 'Invalid action.', 'chout-all-in-one' ) ) );
 			}
@@ -222,6 +254,36 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 		public static function get_custom_ips() {
 			$ips = get_option( self::OPTION_CUSTOM_IPS, array() );
 			return is_array( $ips ) ? $ips : array();
+		}
+
+		public static function get_block_history() {
+			$history = get_option( self::OPTION_BLOCK_HISTORY, array() );
+			return is_array( $history ) ? $history : array();
+		}
+
+		public static function log_blocked_ip( $ip ) {
+			$history = self::get_block_history();
+
+			$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+			$user_agent  = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
+
+			// Prepend new record so newest is first
+			array_unshift(
+				$history,
+				array(
+					'ip'         => $ip,
+					'date'       => current_time( 'mysql' ),
+					'url'        => $request_uri,
+					'user_agent' => $user_agent,
+				)
+			);
+
+			// Keep only the most recent MAX_HISTORY_RECORDS
+			if ( count( $history ) > self::MAX_HISTORY_RECORDS ) {
+				$history = array_slice( $history, 0, self::MAX_HISTORY_RECORDS );
+			}
+
+			update_option( self::OPTION_BLOCK_HISTORY, $history, false );
 		}
 
 		public static function fetch_aio_ips( $force = false ) {
@@ -369,7 +431,8 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 
 			// 1. Check exact match
 			if ( isset( $blocked_ips[ $user_ip ] ) ) {
-				wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+				self::log_blocked_ip( $user_ip );
+				wp_die( esc_html__( 'You have been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
 			}
 
 			// 2. Check partial match (IPv4)
@@ -379,7 +442,8 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				foreach ( $parts as $part ) {
 					$check_ip .= $part . '.';
 					if ( isset( $blocked_ips[ $check_ip ] ) ) {
-						wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+						self::log_blocked_ip( $user_ip );
+						wp_die( esc_html__( 'You have been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
 					}
 				}
 			} 
@@ -390,7 +454,8 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				foreach ( $parts as $part ) {
 					$check_ip .= $part . ':';
 					if ( isset( $blocked_ips[ $check_ip ] ) ) {
-						wp_die( esc_html__( 'Your IP address has been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
+						self::log_blocked_ip( $user_ip );
+						wp_die( esc_html__( 'You have been blocked from accessing this website.', 'chout-all-in-one' ), esc_html__( 'Access Denied', 'chout-all-in-one' ), array( 'response' => 403 ) );
 					}
 				}
 			}
@@ -434,16 +499,18 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 				wp_die( esc_html__( 'You do not have permission to access this page.', 'chout-all-in-one' ) );
 			}
 
-			$use_aio_ips = get_option( self::OPTION_USE_AIO_IPS, false );
-			$aio_ips     = self::get_aio_ips();
-			$custom_ips  = self::get_custom_ips();
+			$use_aio_ips   = get_option( self::OPTION_USE_AIO_IPS, false );
+			$aio_ips       = self::get_aio_ips();
+			$custom_ips    = self::get_custom_ips();
+			$block_history = self::get_block_history();
+			$history_count = count( $block_history );
 			?>
 			
 			<div class="chout-background-effect"></div>
 
 			<div id="chout-aio-block-ips" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1>Chout - Block IPs</h1>
+					<h1>Block IPs</h1>
 
 					<div id="chout-donate">
 						<span class="author">
@@ -457,6 +524,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 						</span>
 					</div>
 					
+					<!-- AIO Blocklist -->
 					<div class="caio-card">
 						<h2><?php esc_html_e( 'AIO Blocklist', 'chout-all-in-one' ); ?></h2>
 						<hr class="hr-h2">
@@ -474,6 +542,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 						</div>
 					</div>
 
+					<!-- Custom IP Blocklist -->
 					<div class="caio-card">
 						<h2><?php esc_html_e( 'Custom IP Blocklist', 'chout-all-in-one' ); ?></h2>
 						<hr class="hr-h2">
@@ -500,17 +569,17 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 							<table class="wp-list-table widefat fixed striped" id="caio_ips_table">
 								<thead>
 									<tr>
-										<td id="cb" class="manage-column column-cb check-column">
+										<td id="cb" class="column-cb check-column">
 											<input id="cb-select-all" type="checkbox">
 										</td>
-										<th scope="col" class="manage-column sortable desc" data-sort="ip">
+										<th scope="col" class="sortable desc" data-sort="ip"  style="width:200px;">
 											<a href="#"><span><?php esc_html_e( 'IP Address', 'chout-all-in-one' ); ?></span><span class="sorting-indicator"></span></a>
 										</th>
-										<th scope="col" class="manage-column sortable desc" data-sort="date">
+										<th scope="col" class="sortable desc" data-sort="date"  style="width:180px;">
 											<a href="#"><span><?php esc_html_e( 'Date Added', 'chout-all-in-one' ); ?></span><span class="sorting-indicator"></span></a>
 										</th>
-										<th scope="col" class="manage-column"><?php esc_html_e( 'Note', 'chout-all-in-one' ); ?></th>
-										<th scope="col" class="manage-column" style="width: 100px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
+										<th scope="col" style="width: 100%; min-width:300px;"><?php esc_html_e( 'Note', 'chout-all-in-one' ); ?></th>
+										<th scope="col" style="width:100px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
 									</tr>
 								</thead>
 								<tbody id="the-list">
@@ -522,7 +591,7 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 												<th scope="row" class="check-column">
 													<input type="checkbox" name="ip[]" value="<?php echo esc_attr( $ip ); ?>">
 												</th>
-												<td class="ip-col"><?php echo esc_html( $ip ); ?></td>
+												<td class="ip-col" title="<?php echo esc_html( $ip ); ?>"><?php echo esc_html( $ip ); ?></td>
 												<td class="date-col"><?php echo esc_html( $data['date'] ); ?></td>
 												<td class="note-col"><?php echo esc_html( $data['note'] ); ?></td>
 												<td>
@@ -535,6 +604,84 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 							</table>
 						</div>
 					</div>
+
+					<!-- Block History -->
+					<div class="caio-card" id="caio-history-card">
+						<div class="caio-history-header">
+							<h2>
+								<?php esc_html_e( 'Block History', 'chout-all-in-one' ); ?>
+							</h2>
+						</div>
+						<hr class="hr-h2">
+
+						<p><?php esc_html_e( 'Records blocked access attempts. Up to 1,000 most recent entries are stored.', 'chout-all-in-one' ); ?></p>
+
+						<div class="caio-table-toolbar">
+							<button type="button" id="caio_history_bulk_delete_btn" class="button button-secondary action" style="display:none;"><?php esc_html_e( 'Delete Selected', 'chout-all-in-one' ); ?></button>
+							<?php if ( $history_count > 0 ) : ?>
+								<button type="button" id="caio_clear_history_btn" class="button button-secondary caio-clear-history-btn">
+									<?php esc_html_e( 'Clear All', 'chout-all-in-one' ); ?>
+								</button>
+							<?php endif; ?>
+							<input type="text" id="caio_search_history" placeholder="<?php esc_attr_e( 'Search history...', 'chout-all-in-one' ); ?>">
+						</div>
+
+						<div style="overflow-x: auto;">
+							<table class="wp-list-table widefat fixed striped" id="caio_history_table">
+								<thead>
+									<tr>
+										<td class="column-cb check-column">
+											<input id="cb-history-select-all" type="checkbox">
+										</td>
+										<th scope="col" style="width:200px;"><?php esc_html_e( 'Blocked IP', 'chout-all-in-one' ); ?></th>
+										<th scope="col" style="width:180px;"><?php esc_html_e( 'Date & Time', 'chout-all-in-one' ); ?></th>
+										<th scope="col" style="width: 100%; min-width:300px;"><?php esc_html_e( 'Accessed', 'chout-all-in-one' ); ?></th>
+										<th scope="col" style="width:100px;"><?php esc_html_e( 'Actions', 'chout-all-in-one' ); ?></th>
+									</tr>
+								</thead>
+								<tbody id="history-list">
+									<?php if ( empty( $block_history ) ) : ?>
+										<tr class="no-items"><td class="colspanchange" colspan="6"><?php esc_html_e( 'No block history yet.', 'chout-all-in-one' ); ?></td></tr>
+									<?php else : ?>
+										<?php foreach ( $block_history as $index => $entry ) : ?>
+											<tr class="hide" data-index="<?php echo esc_attr( $index ); ?>">
+												<th scope="row" class="check-column">
+													<input type="checkbox" name="history_index[]" value="<?php echo esc_attr( $index ); ?>">
+												</th>
+												<td class="history-ip-col" title="<?php echo esc_html( $entry['ip'] ); ?>"><?php echo esc_html( $entry['ip'] ); ?></td>
+												<td class="history-date-col"><?php echo esc_html( $entry['date'] ); ?></td>
+												<td class="history-url-col">
+													<span class="hide-text" hidden>
+														<button type="button" class="caio-ua-toggle" title="<?php esc_attr_e( 'Show User Agent', 'chout-all-in-one' ); ?>" aria-expanded="false">
+															<span class="dashicons dashicons-visibility"></span>
+														</button>
+														<span class="caio-url-text hide" hidden title="<?php echo esc_attr( $entry['url'] ); ?>">
+															<span><strong>URL:</strong><br></span>
+															<?php echo esc_html( $entry['url'] ); ?>
+														</span>
+														<span class="caio-ua-text hide" hidden>
+															<strong>User Agent:</strong><br>
+															<?php echo esc_html( $entry['user_agent'] ); ?>
+														</span>
+													</span>
+												</td>
+												<td>
+													<button type="button" class="button button-secondary caio-history-delete-btn" data-index="<?php echo esc_attr( $index ); ?>"><?php esc_html_e( 'Delete', 'chout-all-in-one' ); ?></button>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php endif; ?>
+								</tbody>
+							</table>
+						</div>
+
+						<?php if ( $history_count > 0 ) : ?>
+							<div style="margin-top: 10px; font-style: italic;">
+								(<?php echo esc_html_e( 'Total:', 'chout-all-in-one' )," " ?><span class="caio-history-badge"><?php echo esc_html( $history_count ); ?></span>.)
+							</div>
+						<?php endif; ?>
+					</div>
+
 				</div>
 			</div>
 			<?php

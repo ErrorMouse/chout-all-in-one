@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.1.6
+ * Version:           1.1.7
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
@@ -77,14 +77,14 @@ add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_caio_updat
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
-		const VERSION         = '1.1.6';
+		const VERSION         = '1.1.7';
 		const OPTION_VERSION  = 'chout_aio_db_version';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';
 
 		public static function init() {
 			add_action( 'admin_init', array( __CLASS__, 'upgrade_routine' ) );
-			add_action( 'init', array( __CLASS__, 'load_enabled_features' ), 0 );
+			add_action( 'plugins_loaded', array( __CLASS__, 'load_enabled_features' ), -9999 );
 			add_action( 'admin_menu', array( __CLASS__, 'register_admin_menu' ) );
 			add_action( 'admin_post_chout_aio_save_features', array( __CLASS__, 'save_features' ) ); // Keep for fallback
 			add_action( 'wp_ajax_chout_aio_toggle_feature', array( __CLASS__, 'ajax_toggle_feature' ) );
@@ -97,7 +97,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 			$db_version = get_option( self::OPTION_VERSION, '1.0.0' );
 			
 			if ( version_compare( $db_version, self::VERSION, '<' ) ) {
-				if ( version_compare( $db_version, '1.1.6', '<' ) ) {
+				if ( version_compare( $db_version, '1.1.7', '<' ) ) {
 					require_once ABSPATH . 'wp-admin/includes/misc.php';
 					require_once ABSPATH . 'wp-admin/includes/file.php';
 					$htaccess_file = get_home_path() . '.htaccess';
@@ -404,7 +404,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 
 			<div id="chout-all-in-one" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1>Chout - All in One</h1>
+					<h1>All in One</h1>
 
 					<div id="chout-donate">
 						<span class="author">

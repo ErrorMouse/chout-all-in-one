@@ -66,7 +66,7 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 
 			<div id="chout-aio-scroll-add-action" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1>Chout - Scroll Add Action</h1>
+					<h1>Scroll Add Action</h1>
 
 					<div id="chout-donate">
 						<span class="author">

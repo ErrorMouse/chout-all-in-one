@@ -112,7 +112,7 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Progress_Bar' ) ) {
 
 			<div id="chout-aio-scroll-progress-bar" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1>Chout - Scroll Progress Bar</h1>
+					<h1>Scroll Progress Bar</h1>
 
 					<div id="chout-donate">
 						<span class="author">
