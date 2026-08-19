@@ -16,7 +16,7 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 			$class_name = self::get_class_name();
 			$custom_css = self::get_custom_css();
 
-			wp_enqueue_style( 'scroll-add-action', plugin_dir_url( __FILE__ ) . 'scroll-add-action.css', array(), '1.0', 'all' );
+			wp_enqueue_style( 'scroll-add-action', plugin_dir_url( __FILE__ ) . 'scroll-add-action.css', array(), Chout_AIO::VERSION, 'all' );
 
 			if ( ! empty( $custom_css ) ) {
 				wp_add_inline_style( 'scroll-add-action', wp_strip_all_tags( $custom_css ) );
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 				return;
 			}
 
-			wp_enqueue_script( 'scroll-add-action-script', plugin_dir_url( __FILE__ ) . 'scroll-add-action.js', array( 'jquery' ), '1.0', true );
+			wp_enqueue_script( 'scroll-add-action-script', plugin_dir_url( __FILE__ ) . 'scroll-add-action.js', array( 'jquery' ), Chout_AIO::VERSION, true );
 			wp_localize_script(
 				'scroll-add-action-script',
 				'scrollAddAction',
@@ -59,14 +59,14 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 
 			$class_name = self::get_class_name();
 			$custom_css = self::get_custom_css();
-			$display_class = $class_name ? $class_name : 'action';
+			$display_class = $class_name ? $class_name . '.action' : 'action';
 			?>
 
 			<div class="chout-background-effect"></div>
 
 			<div id="chout-aio-scroll-add-action" class="chout-all-in-one">
 				<div class="caio-wrap">
-					<h1>Scroll Add Action</h1>
+					<h1>Scroll Add action</h1>
 
 					<div id="chout-donate">
 						<span class="author">
@@ -119,8 +119,7 @@ if ( ! class_exists( 'Chout_AIO_Scroll_Add_Action' ) ) {
 									<label for="scroll_add_action_css"><strong><?php esc_html_e( 'Custom CSS', 'chout-all-in-one' ); ?></strong></label>
 									<p class="description" style="margin-top: 5px; font-style: italic;">
 										<?php
-										/* translators: %s: CSS class name */
-										printf( esc_html__( 'When the user scrolls to the target, the "%s" class will be automatically added to the element. You can write the CSS formatting for that class here:', 'chout-all-in-one' ), esc_html( $display_class ) );
+											echo esc_html__( 'When the user scrolls to the target, the "action" class will be automatically added to the element. You can write the CSS formatting for that class here:', 'chout-all-in-one' );
 										?>
 									</p>
 								</div>

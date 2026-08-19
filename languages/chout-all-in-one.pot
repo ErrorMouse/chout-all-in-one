@@ -12,6 +12,8 @@ msgstr ""
 "X-Generator: Codex\n"
 "X-Domain: chout-all-in-one\n"
 
+
+
 msgid "Chout - All in One"
 msgstr ""
 
@@ -27,37 +29,19 @@ msgstr ""
 msgid "All settings updated successfully."
 msgstr ""
 
-msgid "Admin Style"
-msgstr ""
-
 msgid "Refine the admin and editing interfaces to make content easier to read and manage."
-msgstr ""
-
-msgid "Add Signature to RSS"
 msgstr ""
 
 msgid "Add a source identifier to content distributed via RSS."
 msgstr ""
 
-msgid "Block WP-Admin Area from Non-Administrators"
-msgstr ""
-
 msgid "Keep the admin area limited to users with website management privileges."
-msgstr ""
-
-msgid "Disable Search & Redirect to Home"
 msgstr ""
 
 msgid "Disable site search and redirect visitors to the homepage when they attempt a search."
 msgstr ""
 
-msgid "Display Dashicons"
-msgstr ""
-
 msgid "Display familiar WordPress icons on the public-facing site."
-msgstr ""
-
-msgid "Keywords Everywhere"
 msgstr ""
 
 msgid "Add subtle keyword signals to content."
@@ -66,28 +50,16 @@ msgstr ""
 msgid "Automatically add relevant keywords to help content be easier to recognize."
 msgstr ""
 
-msgid "Redirect to Homepage Upon Logout"
-msgstr ""
-
 msgid "Send users back to the homepage after they log out instead of the login screen."
 msgstr ""
 
 msgid "Return users to the homepage after they log out."
 msgstr ""
 
-msgid "Scroll Add Action"
-msgstr ""
-
 msgid "Create a state-change effect for content as visitors scroll."
 msgstr ""
 
-msgid "Snow Effect"
-msgstr ""
-
 msgid "Add a gentle snowfall effect to your website for seasonal decoration."
-msgstr ""
-
-msgid "Slick Custom"
 msgstr ""
 
 msgid "Add support for displaying content in slideshow format on the website."
@@ -165,9 +137,6 @@ msgstr ""
 msgid "Block specific IP addresses from accessing the website, with support for AIO community blocklist."
 msgstr ""
 
-msgid "AIO Blocklist"
-msgstr ""
-
 msgid "Use the community-provided blacklist to block known malicious IPs automatically."
 msgstr ""
 
@@ -234,16 +203,10 @@ msgstr ""
 msgid "Upload a CSV file containing IPs (Column 1: IP, Column 2: Note)."
 msgstr ""
 
-msgid "Add Featured Image Column"
-msgstr ""
-
 msgid "Display the featured image thumbnail in the post list."
 msgstr ""
 
 msgid "Featured Image"
-msgstr ""
-
-msgid "Add Media File Size Column"
 msgstr ""
 
 msgid "Display file size column in the Media Library list view."
@@ -252,25 +215,13 @@ msgstr ""
 msgid "File Size"
 msgstr ""
 
-msgid "Disable Comments"
-msgstr ""
-
 msgid "Completely disable comments and remove the Comments menu from the dashboard."
-msgstr ""
-
-msgid "Disable Emojis"
 msgstr ""
 
 msgid "Remove WordPress core emoji scripts and styles to improve page loading speed."
 msgstr ""
 
-msgid "Disable jQuery Migrate"
-msgstr ""
-
 msgid "Deregister the jquery-migrate script from the frontend to save bandwidth."
-msgstr ""
-
-msgid "Remove WP Logo From Admin Bar"
 msgstr ""
 
 msgid "Make WordPress dashicons available on the public-facing site."
@@ -279,13 +230,7 @@ msgstr ""
 msgid "Remove the WordPress logo menu from the top admin bar."
 msgstr ""
 
-msgid "Allow SVG Files Upload"
-msgstr ""
-
 msgid "Allow administrator users to upload SVG files safely."
-msgstr ""
-
-msgid "Disable XML-RPC"
 msgstr ""
 
 msgid "Completely disable XML-RPC to improve website security and prevent brute force attacks."
@@ -339,7 +284,7 @@ msgstr ""
 msgid "Custom CSS"
 msgstr ""
 
-msgid "When the user scrolls to the target, the "%s" class will be automatically added to the element. You can write the CSS formatting for that class here:"
+msgid "When the user scrolls to the target, the \"action\" class will be automatically added to the element. You can write the CSS formatting for that class here:"
 msgstr ""
 
 msgid "Toggle All"
@@ -385,4 +330,10 @@ msgid "No entries selected."
 msgstr ""
 
 msgid "Total:"
+msgstr ""
+
+msgid "Enable smooth animated scrolling when users click on anchor links. Prevent #id from being added to the URL address bar."
+msgstr ""
+
+msgid "Add buttery-smooth inertia scrolling to the entire page using the Lenis library."
 msgstr ""

@@ -11,7 +11,7 @@ if ( ! class_exists( 'Chout_AIO_Admin_Style' ) ) {
 		}
 
 		public static function enqueue_style() {
-			wp_enqueue_style( 'admin-style', plugin_dir_url( __FILE__ ) . 'admin-style.css', array(), '1.0', 'all' );
+			wp_enqueue_style( 'admin-style', plugin_dir_url( __FILE__ ) . 'admin-style.css', array(), Chout_AIO::VERSION, 'all' );
 		}
 	}
 }

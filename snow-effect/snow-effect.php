@@ -10,7 +10,7 @@ if ( ! class_exists( 'Chout_AIO_Snow_Effect' ) ) {
 		}
 
 		public static function enqueue_script() {
-			wp_enqueue_script( 'snow-effect', plugin_dir_url( __FILE__ ) . 'snow-effect.js', array( 'jquery' ), '1.0', true );
+			wp_enqueue_script( 'snow-effect', plugin_dir_url( __FILE__ ) . 'snow-effect.js', array( 'jquery' ), Chout_AIO::VERSION, true );
 		}
 	}
 }

@@ -31,7 +31,7 @@ function chout_aio_uninstall_site() {
 	delete_option( 'chout_aio_features' );
 	delete_option( 'chout_aio_update_mode' );
 	
-	// Clean up Scroll Add Action data
+	// Clean up Scroll Add action data
 	delete_option( 'chout_aio_scroll_add_action_class' );
 	delete_option( 'chout_aio_scroll_add_action_custom_css' );
 	
@@ -48,7 +48,7 @@ function chout_aio_uninstall_site() {
 	$upload_dir = wp_upload_dir();
 	$file_path  = $upload_dir['basedir'] . '/chout-aio-blocked-ips.php';
 	if ( file_exists( $file_path ) ) {
-		unlink( $file_path );
+		wp_delete_file( $file_path );
 	}
 
 	chout_aio_delete_settings_updated_transients();

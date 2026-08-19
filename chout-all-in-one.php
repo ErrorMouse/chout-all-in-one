@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.1.7
+ * Version:           1.1.8
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
@@ -43,6 +43,7 @@ if ( $chout_caio_update_mode === 'github' ) {
 	$myUpdateChecker->setBranch('main');
 } else {
 	$myUpdateChecker = PucFactory::buildUpdateChecker(
+		// phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent
 		'https://raw.githubusercontent.com/ErrorMouse/chout-all-in-one/refs/heads/main/chout-all-in-one.json',
 		__FILE__,
 		'chout-all-in-one'
@@ -77,7 +78,7 @@ add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_caio_updat
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
-		const VERSION         = '1.1.7';
+		const VERSION         = '1.1.8';
 		const OPTION_VERSION  = 'chout_aio_db_version';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';
@@ -97,7 +98,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 			$db_version = get_option( self::OPTION_VERSION, '1.0.0' );
 			
 			if ( version_compare( $db_version, self::VERSION, '<' ) ) {
-				if ( version_compare( $db_version, '1.1.7', '<' ) ) {
+				if ( version_compare( $db_version, '1.1.2', '<' ) ) {
 					require_once ABSPATH . 'wp-admin/includes/misc.php';
 					require_once ABSPATH . 'wp-admin/includes/file.php';
 					$htaccess_file = get_home_path() . '.htaccess';
@@ -156,43 +157,43 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 		public static function features() {
 			return array(
 				'admin-style'                			=> array(
-					'name'        => __( 'Admin Style', 'chout-all-in-one' ),
+					'name'        => 'Admin Style',
 					'description' => __( 'Refine the admin and editing interfaces to make content easier to read and manage.', 'chout-all-in-one' ),
 					'file'        => 'admin-style/admin-style.php',
 					'class'       => 'Chout_AIO_Admin_Style',
 				),
 				'add-signature-to-rss'           		=> array(
-					'name'        => __( 'Add Signature to RSS', 'chout-all-in-one' ),
+					'name'        => 'Add Signature to RSS',
 					'description' => __( 'Add a source identifier to content distributed via RSS.', 'chout-all-in-one' ),
 					'file'        => 'add-signature-to-rss/add-signature-to-rss.php',
 					'class'       => 'Chout_AIO_Add_Signature_To_RSS',
 				),
 				'add-featured-image-column'               => array(
-					'name'        => __( 'Add Featured Image Column', 'chout-all-in-one' ),
+					'name'        => 'Add Featured Image Column',
 					'description' => __( 'Display the featured image thumbnail in the post list.', 'chout-all-in-one' ),
 					'file'        => 'add-featured-image-column/add-featured-image-column.php',
 					'class'       => 'Chout_AIO_Add_Featured_Image_Column',
 				),
 				'add-media-file-size-column'              => array(
-					'name'        => __( 'Add Media File Size Column', 'chout-all-in-one' ),
+					'name'        => 'Add Media File Size Column',
 					'description' => __( 'Display file size column in the Media Library list view.', 'chout-all-in-one' ),
 					'file'        => 'add-media-file-size-column/add-media-file-size-column.php',
 					'class'       => 'Chout_AIO_Add_Media_File_Size_Column',
 				),
 				'add-signature-to-rss'           		=> array(
-					'name'        => __( 'Add Signature to RSS', 'chout-all-in-one' ),
+					'name'        => 'Add Signature to RSS',
 					'description' => __( 'Add a source identifier to content distributed via RSS.', 'chout-all-in-one' ),
 					'file'        => 'add-signature-to-rss/add-signature-to-rss.php',
 					'class'       => 'Chout_AIO_Add_Signature_To_RSS',
 				),
 				'allow-svg-files-upload'                  => array(
-					'name'        => __( 'Allow SVG Files Upload', 'chout-all-in-one' ),
+					'name'        => 'Allow SVG Files Upload',
 					'description' => __( 'Allow administrator users to upload SVG files safely.', 'chout-all-in-one' ),
 					'file'        => 'allow-svg-files-upload/allow-svg-files-upload.php',
 					'class'       => 'Chout_AIO_Allow_SVG_Upload',
 				),
 				'block-ips'                           	=> array(
-					'name'            => __( 'Block IPs', 'chout-all-in-one' ),
+					'name'            => 'Block IPs',
 					'description'     => __( 'Block specific IP addresses from accessing the website, with support for AIO community blocklist.', 'chout-all-in-one' ),
 					'file'            => 'block-ips/block-ips.php',
 					'class'           => 'Chout_AIO_Block_IPs',
@@ -201,67 +202,67 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 					'config_callback' => array( 'Chout_AIO_Block_IPs', 'settings_page' ),
 				),
 				'block-wpadmin-area-from-non-admin'		=> array(
-					'name'        => __( 'Block WP-Admin Area from Non-Administrators', 'chout-all-in-one' ),
+					'name'        => 'Block WP-Admin Area from Non-Administrators',
 					'description' => __( 'Keep the admin area limited to users with website management privileges.', 'chout-all-in-one' ),
 					'file'        => 'block-wpadmin-area-from-non-admin/block-wpadmin-area-from-non-admin.php',
 					'class'       => 'Chout_AIO_Block_WPAdmin_Area',
 				),
 				'disable-comments'                        => array(
-					'name'        => __( 'Disable Comments', 'chout-all-in-one' ),
+					'name'        => 'Disable Comments',
 					'description' => __( 'Completely disable comments and remove the Comments menu from the dashboard.', 'chout-all-in-one' ),
 					'file'        => 'disable-comments/disable-comments.php',
 					'class'       => 'Chout_AIO_Disable_Comments',
 				),
 				'disable-emojis'                          => array(
-					'name'        => __( 'Disable Emojis', 'chout-all-in-one' ),
+					'name'        => 'Disable Emojis',
 					'description' => __( 'Remove WordPress core emoji scripts and styles to improve page loading speed.', 'chout-all-in-one' ),
 					'file'        => 'disable-emojis/disable-emojis.php',
 					'class'       => 'Chout_AIO_Disable_Emojis',
 				),
 				'disable-jquery-migrate'                  => array(
-					'name'        => __( 'Disable jQuery Migrate', 'chout-all-in-one' ),
+					'name'        => 'Disable jQuery Migrate',
 					'description' => __( 'Deregister the jquery-migrate script from the frontend to save bandwidth.', 'chout-all-in-one' ),
 					'file'        => 'disable-jquery-migrate/disable-jquery-migrate.php',
 					'class'       => 'Chout_AIO_Disable_jQuery_Migrate',
 				),
 				'disable-search-redirect-to-home'		=> array(
-					'name'        => __( 'Disable Search & Redirect to Home', 'chout-all-in-one' ),
+					'name'        => 'Disable Search & Redirect to Home',
 					'description' => __( 'Disable site search and redirect visitors to the homepage when they attempt a search.', 'chout-all-in-one' ),
 					'file'        => 'disable-search-redirect-to-home/disable-search-redirect-to-home.php',
 					'class'       => 'Chout_AIO_Disable_Search',
 				),
 				'disable-xml-rpc'                         => array(
-					'name'        => __( 'Disable XML-RPC', 'chout-all-in-one' ),
+					'name'        => 'Disable XML-RPC',
 					'description' => __( 'Completely disable XML-RPC to improve website security and prevent brute force attacks.', 'chout-all-in-one' ),
 					'file'        => 'disable-xml-rpc/disable-xml-rpc.php',
 					'class'       => 'Chout_AIO_Disable_XML_RPC',
 				),
 				'display-dashicons'                		=> array(
-					'name'        => __( 'Display Dashicons', 'chout-all-in-one' ),
+					'name'        => 'Display Dashicons',
 					'description' => __( 'Make WordPress dashicons available on the public-facing site.', 'chout-all-in-one' ),
 					'file'        => 'display-dashicons/display-dashicons.php',
 					'class'       => 'Chout_AIO_Display_Dashicons',
 				),
 				'keywords-everywhere'           		=> array(
-					'name'        => __( 'Keywords Everywhere', 'chout-all-in-one' ),
+					'name'        => 'Keywords Everywhere',
 					'description' => __( 'Add subtle keyword signals to content.', 'chout-all-in-one' ),
 					'file'        => 'keywords-everywhere/keywords-everywhere.php',
 					'class'       => 'Chout_AIO_Keywords_Everywhere',
 				),
 				'redirects-to-the-homepage-upon-logout'	=> array(
-					'name'        => __( 'Redirect to Homepage Upon Logout', 'chout-all-in-one' ),
+					'name'        => 'Redirect to Homepage Upon Logout',
 					'description' => __( 'Send users back to the homepage after they log out instead of the login screen.', 'chout-all-in-one' ),
 					'file'        => 'redirects-to-the-homepage-upon-logout/redirects-to-the-homepage-upon-logout.php',
 					'class'       => 'Chout_AIO_Logout_Redirect',
 				),
 				'remove-wp-logo-from-admin-bar'           => array(
-					'name'        => __( 'Remove WP Logo From Admin Bar', 'chout-all-in-one' ),
+					'name'        => 'Remove WP Logo From Admin Bar',
 					'description' => __( 'Remove the WordPress logo menu from the top admin bar.', 'chout-all-in-one' ),
 					'file'        => 'remove-wp-logo-from-admin-bar/remove-wp-logo-from-admin-bar.php',
 					'class'       => 'Chout_AIO_Remove_WP_Logo_From_Admin_Bar',
 				),
 				'scroll-add-action'            			=> array(
-					'name'            => __( 'Scroll Add Action', 'chout-all-in-one' ),
+					'name'            => 'Scroll Add action',
 					'description'     => __( 'Create a state-change effect for content as visitors scroll.', 'chout-all-in-one' ),
 					'file'            => 'scroll-add-action/scroll-add-action.php',
 					'class'           => 'Chout_AIO_Scroll_Add_Action',
@@ -270,7 +271,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 					'config_callback' => array( 'Chout_AIO_Scroll_Add_Action', 'settings_page' ),
 				),
 				'scroll-progress-bar'                     => array(
-					'name'            => __( 'Scroll Progress Bar', 'chout-all-in-one' ),
+					'name'            => 'Scroll Progress Bar',
 					'description'     => __( 'Display a reading progress bar at the top or bottom of the screen as users scroll.', 'chout-all-in-one' ),
 					'file'            => 'scroll-progress-bar/scroll-progress-bar.php',
 					'class'           => 'Chout_AIO_Scroll_Progress_Bar',
@@ -279,13 +280,25 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 					'config_callback' => array( 'Chout_AIO_Scroll_Progress_Bar', 'settings_page' ),
 				),
 				'slick-custom'                        	=> array(
-					'name'        => __( 'Slick Custom', 'chout-all-in-one' ),
+					'name'        => 'Slick Custom',
 					'description' => __( 'Add support for displaying content in slideshow format on the website.', 'chout-all-in-one' ),
 					'file'        => 'slick-custom/slick-custom.php',
 					'class'       => 'Chout_AIO_Slick_Custom',
 				),
+				'smooth-scrolling-for-anchor-links'       => array(
+					'name'        => 'Smooth Scrolling for Anchor Links',
+					'description' => __( 'Enable smooth animated scrolling when users click on anchor links. Prevent #id from being added to the URL address bar.', 'chout-all-in-one' ),
+					'file'        => 'smooth-scrolling-for-anchor-links/smooth-scrolling-for-anchor-links.php',
+					'class'       => 'Chout_AIO_Smooth_Scrolling',
+				),
+				'smooth-scroll-by-lenis'                  => array(
+					'name'        => 'Smooth Scroll by Lenis',
+					'description' => __( 'Add buttery-smooth inertia scrolling to the entire page using the Lenis library.', 'chout-all-in-one' ),
+					'file'        => 'smooth-scroll-by-lenis/smooth-scroll-by-lenis.php',
+					'class'       => 'Chout_AIO_Smooth_Scroll_Lenis',
+				),
 				'snow-effect'                     		=> array(
-					'name'        => __( 'Snow Effect', 'chout-all-in-one' ),
+					'name'        => 'Snow Effect',
 					'description' => __( 'Add a gentle snowfall effect to your website for seasonal decoration.', 'chout-all-in-one' ),
 					'file'        => 'snow-effect/snow-effect.php',
 					'class'       => 'Chout_AIO_Snow_Effect',

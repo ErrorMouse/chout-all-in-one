@@ -38,7 +38,7 @@ if ( ! class_exists( 'Chout_AIO_Disable_Emojis' ) ) {
 		public static function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 			if ( 'dns-prefetch' === $relation_type ) {
 				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- This is a core WordPress filter.
-				$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
+				$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' ); // phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent
 				$urls          = array_diff( $urls, array( $emoji_svg_url ) );
 			}
 			return $urls;

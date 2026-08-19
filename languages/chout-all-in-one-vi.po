@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Chout - All in One 1.1.7\n"
 "Report-Msgid-Bugs-To: https://profiles.wordpress.org/nmtnguyen56/\n"
 "POT-Creation-Date: 2026-06-10 00:00+0700\n"
-"PO-Revision-Date: 2026-07-19 20:34+0700\n"
+"PO-Revision-Date: 2026-08-19 17:04+0700\n"
 "Last-Translator: Chout <https://profiles.wordpress.org/nmtnguyen56/>\n"
 "Language-Team: Vietnamese\n"
 "Language: vi\n"
@@ -29,14 +29,8 @@ msgstr "Bài viết này được đăng tại <a href=\"%1$s\" rel=\"dofollow\"
 msgid "All settings updated successfully."
 msgstr "Tất cả các cài đặt đã được cập nhật thành công."
 
-msgid "Admin Style"
-msgstr "Admin Style"
-
 msgid "Refine the admin and editing interfaces to make content easier to read and manage."
 msgstr "Tinh chỉnh giao diện quản trị và soạn thảo để nội dung dễ đọc và dễ quản lý hơn."
-
-msgid "Add Signature to RSS"
-msgstr "Add Signature to RSS"
 
 msgid "Add a source identifier to content distributed via RSS."
 msgstr "Thêm thông tin nhận diện nguồn cho nội dung được phân phối qua RSS."
@@ -47,20 +41,11 @@ msgstr "Block WP-Admin Area from Non-Administrators"
 msgid "Keep the admin area limited to users with website management privileges."
 msgstr "Giới hạn khu vực quản trị cho người dùng có quyền quản lý website."
 
-msgid "Disable Search & Redirect to Home"
-msgstr "Disable Search & Redirect to Home"
-
 msgid "Disable site search and redirect visitors to the homepage when they attempt a search."
 msgstr "Tắt tìm kiếm trên website và chuyển khách truy cập về trang chủ khi họ thử tìm kiếm."
 
-msgid "Display Dashicons"
-msgstr "Display Dashicons"
-
 msgid "Display familiar WordPress icons on the public-facing site."
 msgstr "Hiển thị các biểu tượng WordPress quen thuộc ở giao diện ngoài website."
-
-msgid "Keywords Everywhere"
-msgstr "Keywords Everywhere"
 
 msgid "Add subtle keyword signals to content."
 msgstr "Thêm các từ khóa tinh tế vào nội dung."
@@ -68,29 +53,17 @@ msgstr "Thêm các từ khóa tinh tế vào nội dung."
 msgid "Automatically add relevant keywords to help content be easier to recognize."
 msgstr "Tự động thêm các từ khóa liên quan để nội dung dễ được nhận diện hơn."
 
-msgid "Redirect to Homepage Upon Logout"
-msgstr "Redirect to Homepage Upon Logout"
-
 msgid "Send users back to the homepage after they log out instead of the login screen."
 msgstr "Sau khi đăng xuất, đưa người dùng trở lại trang chủ thay vì màn hình đăng nhập."
 
 msgid "Return users to the homepage after they log out."
 msgstr "Đưa người dùng trở về trang chủ sau khi họ đăng xuất."
 
-msgid "Scroll Add Action"
-msgstr "Scroll Add Action"
-
 msgid "Create a state-change effect for content as visitors scroll."
 msgstr "Tạo hiệu ứng thay đổi trạng thái cho nội dung khi khách truy cập cuộn trang."
 
-msgid "Snow Effect"
-msgstr "Snow Effect"
-
 msgid "Add a gentle snowfall effect to your website for seasonal decoration."
 msgstr "Thêm hiệu ứng tuyết rơi nhẹ nhàng cho website để trang trí theo mùa."
-
-msgid "Slick Custom"
-msgstr "Slick Custom"
 
 msgid "Add support for displaying content in slideshow format on the website."
 msgstr "Thêm hỗ trợ hiển thị nội dung dạng trình chiếu trên website."
@@ -164,9 +137,6 @@ msgstr "Truy cập bị từ chối"
 msgid "Block specific IP addresses from accessing the website, with support for AIO community blocklist."
 msgstr "Chặn các địa chỉ IP cụ thể truy cập vào trang web, có hỗ trợ danh sách đen từ cộng đồng AIO."
 
-msgid "AIO Blocklist"
-msgstr "AIO Blocklist"
-
 msgid "Use the community-provided blacklist to block known malicious IPs automatically."
 msgstr "Sử dụng danh sách đen do cộng đồng cung cấp để tự động chặn các IP độc hại đã biết."
 
@@ -233,17 +203,11 @@ msgstr "Cập nhật bằng JSON"
 msgid "Upload a CSV file containing IPs (Column 1: IP, Column 2: Note)."
 msgstr "Tải lên tệp CSV chứa danh sách IP (Cột 1: Địa chỉ IP, Cột 2: Ghi chú)."
 
-msgid "Add Featured Image Column"
-msgstr "Add Featured Image Column"
-
 msgid "Display the featured image thumbnail in the post list."
 msgstr "Hiển thị ảnh thu nhỏ của ảnh đại diện trong danh sách bài viết."
 
 msgid "Featured Image"
 msgstr "Ảnh đại diện"
-
-msgid "Add Media File Size Column"
-msgstr "Add Media File Size Column"
 
 msgid "Display file size column in the Media Library list view."
 msgstr "Hiển thị cột dung lượng tệp trong chế độ xem danh sách của Thư viện Media."
@@ -251,26 +215,14 @@ msgstr "Hiển thị cột dung lượng tệp trong chế độ xem danh sách 
 msgid "File Size"
 msgstr "Dung lượng"
 
-msgid "Disable Comments"
-msgstr "Disable Comments"
-
 msgid "Completely disable comments and remove the Comments menu from the dashboard."
 msgstr "Vô hiệu hóa hoàn toàn tính năng bình luận và xóa menu Bình luận khỏi bảng điều khiển."
-
-msgid "Disable Emojis"
-msgstr "Disable Emojis"
 
 msgid "Remove WordPress core emoji scripts and styles to improve page loading speed."
 msgstr "Xóa các tệp script và style của biểu tượng cảm xúc mặc định trong WordPress để cải thiện tốc độ tải trang."
 
-msgid "Disable jQuery Migrate"
-msgstr "Disable jQuery Migrate"
-
 msgid "Deregister the jquery-migrate script from the frontend to save bandwidth."
 msgstr "Gỡ bỏ tệp script jquery-migrate ở giao diện người dùng để tiết kiệm băng thông."
-
-msgid "Remove WP Logo From Admin Bar"
-msgstr "Remove WP Logo From Admin Bar"
 
 msgid "Make WordPress dashicons available on the public-facing site."
 msgstr "Cung cấp các biểu tượng dashicon của WordPress trên trang web dành cho công chúng."
@@ -278,14 +230,8 @@ msgstr "Cung cấp các biểu tượng dashicon của WordPress trên trang web
 msgid "Remove the WordPress logo menu from the top admin bar."
 msgstr "Xóa menu chứa logo WordPress ở góc trên bên trái thanh quản trị."
 
-msgid "Allow SVG Files Upload"
-msgstr "Allow SVG Files Upload"
-
 msgid "Allow administrator users to upload SVG files safely."
 msgstr "Cho phép Quản trị viên tải lên các tệp định dạng SVG một cách an toàn."
-
-msgid "Disable XML-RPC"
-msgstr "Disable XML-RPC"
 
 msgid "Completely disable XML-RPC to improve website security and prevent brute force attacks."
 msgstr "Vô hiệu hóa hoàn toàn giao thức XML-RPC để tăng cường bảo mật và ngăn chặn các cuộc tấn công dò mật khẩu (Brute force)."
@@ -338,8 +284,8 @@ msgstr "Lỗi kết nối."
 msgid "Custom CSS"
 msgstr "CSS Tùy chỉnh"
 
-msgid "When the user scrolls to the target, the \"%s\" class will be automatically added to the element. You can write the CSS formatting for that class here:"
-msgstr "Khi người dùng cuộn đến mục tiêu, class \"%s\" sẽ tự động được thêm vào phần tử. Bạn có thể viết CSS định dạng cho class đó tại đây:"
+msgid "When the user scrolls to the target, the \"action\" class will be automatically added to the element. You can write the CSS formatting for that class here:"
+msgstr "Khi người dùng cuộn đến mục tiêu, class \"action\" sẽ tự động được thêm vào phần tử. Bạn có thể viết CSS định dạng cho class đó tại đây:"
 
 msgid "Toggle All"
 msgstr "Bật / Tắt tất cả"
@@ -385,3 +331,9 @@ msgstr "Chưa chọn bản ghi nào."
 
 msgid "Total:"
 msgstr "Tổng cộng:"
+
+msgid "Enable smooth animated scrolling when users click on anchor links. Prevent #id from being added to the URL address bar."
+msgstr "Bật cuộn trang mượt mà khi người dùng nhấp vào các liên kết neo. Ngăn không cho #id được thêm vào thanh địa chỉ URL."
+
+msgid "Add buttery-smooth inertia scrolling to the entire page using the Lenis library."
+msgstr "Thêm hiệu ứng cuộn trang mượt mà cho toàn bộ trang bằng thư viện Lenis."

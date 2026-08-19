@@ -11,11 +11,11 @@ if ( ! class_exists( 'Chout_AIO_Slick_Custom' ) ) {
 		}
 
 		public static function enqueue_style() {
-			wp_enqueue_style( 'slick', plugin_dir_url( __FILE__ ) . 'slick.css', array(), '1.0', 'all' );
+			wp_enqueue_style( 'slick', plugin_dir_url( __FILE__ ) . 'slick.css', array(), Chout_AIO::VERSION, 'all' );
 		}
 
 		public static function enqueue_script() {
-			wp_enqueue_script( 'slick', plugin_dir_url( __FILE__ ) . 'slick.js', array( 'jquery' ), '1.0', true );
+			wp_enqueue_script( 'slick', plugin_dir_url( __FILE__ ) . 'slick.js', array( 'jquery' ), Chout_AIO::VERSION, true );
 		}
 	}
 }

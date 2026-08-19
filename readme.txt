@@ -4,7 +4,7 @@ Tags:               admin, effects, security, seo, style
 Requires at least:  5.2
 Tested up to:       7.0
 Requires PHP:       7.4
-Stable tag:         1.1.7
+Stable tag:         1.1.8
 License:            GPLv2 or later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,7 +32,7 @@ Chout - All in One brings several small website enhancements into one plugin. Ea
 * **Keywords Everywhere:** Adds relevant keyword signals to help content be better understood.
 * **Redirect to Homepage Upon Logout:** Sends users back to the homepage after they log out.
 * **Remove WP Logo From Admin Bar:** Remove the WordPress logo menu from the top admin bar.
-* **Scroll Add Action:** Adds a visible state change when visitors scroll to selected content.
+* **Scroll Add action:** Adds a visible state change when visitors scroll to selected content.
 * **Scroll Progress Bar:** Display a reading progress bar at the top or bottom of the screen as users scroll.
 * **Slick Custom:** Adds support for carousel-style content displays.
 * **Snow Effect:** Adds a light falling snow effect for seasonal decoration.
@@ -55,6 +55,11 @@ No. All features are turned off by default so you can choose only what you need.
 Open the Chout AIO settings screen. When an enabled feature has its own settings, a Customize button appears next to it.
 
 == Changelog ==
+
+= 1.1.8 =
+
+* Feature: Added 'Smooth Scrolling for Anchor Links'.
+* Feature: Added 'Smooth Scroll by Lenis'.
 
 = 1.1.7 =
 
@@ -88,7 +93,7 @@ Open the Chout AIO settings screen. When an enabled feature has its own settings
 * Feature: Added 'Disable jQuery Migrate'.
 * Feature: Added 'Disable XML-RPC'.
 * Feature: Added 'Remove WP Logo From Admin Bar'.
-* Feature: Added 'Scroll Add Action' (with Custom CSS support).
+* Feature: Added 'Scroll Add action' (with Custom CSS support).
 * Feature: Added 'Scroll Progress Bar'.
 
 = 1.1.0 =
