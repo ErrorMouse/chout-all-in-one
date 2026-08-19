@@ -35,6 +35,8 @@ Chout - All in One brings several small website enhancements into one plugin. Ea
 * **Scroll Add action:** Adds a visible state change when visitors scroll to selected content.
 * **Scroll Progress Bar:** Display a reading progress bar at the top or bottom of the screen as users scroll.
 * **Slick Custom:** Adds support for carousel-style content displays.
+* **Smooth Scrolling for Anchor Links**: Enable smooth animated scrolling when users click on anchor links. Prevent #id from being added to the URL address bar.
+* **Smooth Scroll by Lenis:** Add buttery-smooth inertia scrolling to the entire page using the Lenis library.
 * **Snow Effect:** Adds a light falling snow effect for seasonal decoration.
 
 == Installation ==
