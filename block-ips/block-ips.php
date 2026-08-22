@@ -16,17 +16,19 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 			add_action( 'wp_ajax_chout_aio_block_ips_action', array( __CLASS__, 'ajax_handler' ) );
 			
-			// Block early, before other plugins like Wordfence (if running in standard mode)
-			add_action( 'plugins_loaded', array( __CLASS__, 'check_and_block_ip' ), -9998 );
+			// Run after the parent plugin has loaded its text domain.
+			add_action( 'init', array( __CLASS__, 'check_and_block_ip' ), 2 );
 			
 			// Register custom cron schedule: every 6 hours
 			add_filter( 'cron_schedules', array( __CLASS__, 'add_cron_schedules' ) );
-			
-			// Reschedule if previously registered with a different interval
+			add_action( 'init', array( __CLASS__, 'setup_cron_schedules' ) );
+			add_action( 'chout_aio_daily_ip_update', array( __CLASS__, 'force_fetch_aio_ips_cron' ) );
+		}
+
+		public static function setup_cron_schedules() {
 			$next = wp_next_scheduled( 'chout_aio_daily_ip_update' );
 			if ( $next ) {
-				$schedules = wp_get_schedules();
-				$event     = wp_get_scheduled_event( 'chout_aio_daily_ip_update' );
+				$event = wp_get_scheduled_event( 'chout_aio_daily_ip_update' );
 				if ( $event && isset( $event->schedule ) && $event->schedule !== 'sixhourly' ) {
 					wp_unschedule_event( $next, 'chout_aio_daily_ip_update' );
 					wp_schedule_event( time(), 'sixhourly', 'chout_aio_daily_ip_update' );
@@ -34,14 +36,13 @@ if ( ! class_exists( 'Chout_AIO_Block_IPs' ) ) {
 			} else {
 				wp_schedule_event( time(), 'sixhourly', 'chout_aio_daily_ip_update' );
 			}
-			add_action( 'chout_aio_daily_ip_update', array( __CLASS__, 'force_fetch_aio_ips_cron' ) );
 		}
 
 		public static function add_cron_schedules( $schedules ) {
 			if ( ! isset( $schedules['sixhourly'] ) ) {
 				$schedules['sixhourly'] = array(
 					'interval' => 6 * HOUR_IN_SECONDS,
-					'display'  => __( 'Every 6 Hours', 'chout-all-in-one' ),
+					'display'  => did_action( 'init' ) ? __( 'Every 6 Hours', 'chout-all-in-one' ) : 'Every 6 Hours',
 				);
 			}
 			return $schedules;

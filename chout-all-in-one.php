@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.1.8
+ * Version:           1.1.9
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
@@ -78,20 +78,26 @@ add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_caio_updat
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
-		const VERSION         = '1.1.8';
+		const VERSION         = '1.1.9';
 		const OPTION_VERSION  = 'chout_aio_db_version';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';
 
 		public static function init() {
-			add_action( 'admin_init', array( __CLASS__, 'upgrade_routine' ) );
+			// Register the text domain before any code calls translation functions.
+			add_action( 'init', array( __CLASS__, 'load_textdomain' ), 0 );
 			add_action( 'plugins_loaded', array( __CLASS__, 'load_enabled_features' ), -9999 );
+			add_action( 'admin_init', array( __CLASS__, 'upgrade_routine' ) );
 			add_action( 'admin_menu', array( __CLASS__, 'register_admin_menu' ) );
 			add_action( 'admin_post_chout_aio_save_features', array( __CLASS__, 'save_features' ) ); // Keep for fallback
 			add_action( 'wp_ajax_chout_aio_toggle_feature', array( __CLASS__, 'ajax_toggle_feature' ) );
 			add_action( 'wp_ajax_chout_aio_toggle_all_features', array( __CLASS__, 'ajax_toggle_all_features' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'add_settings_link' ) );
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_styles' ) );
+		}
+
+		public static function load_textdomain() {
+			load_plugin_textdomain( 'chout-all-in-one', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		public static function upgrade_routine() {
@@ -306,6 +312,101 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 			);
 		}
 
+				public static function feature_files() {
+			return array(
+				'admin-style' => array(
+					'file'  => 'admin-style/admin-style.php',
+					'class' => 'Chout_AIO_Admin_Style',
+				),
+				'add-signature-to-rss' => array(
+					'file'  => 'add-signature-to-rss/add-signature-to-rss.php',
+					'class' => 'Chout_AIO_Add_Signature_To_RSS',
+				),
+				'add-featured-image-column' => array(
+					'file'  => 'add-featured-image-column/add-featured-image-column.php',
+					'class' => 'Chout_AIO_Add_Featured_Image_Column',
+				),
+				'add-media-file-size-column' => array(
+					'file'  => 'add-media-file-size-column/add-media-file-size-column.php',
+					'class' => 'Chout_AIO_Add_Media_File_Size_Column',
+				),
+				'allow-svg-files-upload' => array(
+					'file'  => 'allow-svg-files-upload/allow-svg-files-upload.php',
+					'class' => 'Chout_AIO_Allow_SVG_Upload',
+				),
+				'block-ips' => array(
+					'file'  => 'block-ips/block-ips.php',
+					'class' => 'Chout_AIO_Block_IPs',
+					'configurable'    => true,
+					'menu_slug'       => 'chout-aio-block-ips',
+				),
+				'block-wpadmin-area-from-non-admin' => array(
+					'file'  => 'block-wpadmin-area-from-non-admin/block-wpadmin-area-from-non-admin.php',
+					'class' => 'Chout_AIO_Block_WPAdmin_Area',
+				),
+				'disable-comments' => array(
+					'file'  => 'disable-comments/disable-comments.php',
+					'class' => 'Chout_AIO_Disable_Comments',
+				),
+				'disable-emojis' => array(
+					'file'  => 'disable-emojis/disable-emojis.php',
+					'class' => 'Chout_AIO_Disable_Emojis',
+				),
+				'disable-jquery-migrate' => array(
+					'file'  => 'disable-jquery-migrate/disable-jquery-migrate.php',
+					'class' => 'Chout_AIO_Disable_jQuery_Migrate',
+				),
+				'disable-search-redirect-to-home' => array(
+					'file'  => 'disable-search-redirect-to-home/disable-search-redirect-to-home.php',
+					'class' => 'Chout_AIO_Disable_Search',
+				),
+				'disable-xml-rpc' => array(
+					'file'  => 'disable-xml-rpc/disable-xml-rpc.php',
+					'class' => 'Chout_AIO_Disable_XML_RPC',
+				),
+				'display-dashicons' => array(
+					'file'  => 'display-dashicons/display-dashicons.php',
+					'class' => 'Chout_AIO_Display_Dashicons',
+				),
+				'keywords-everywhere' => array(
+					'file'  => 'keywords-everywhere/keywords-everywhere.php',
+					'class' => 'Chout_AIO_Keywords_Everywhere',
+				),
+				'redirects-to-the-homepage-upon-logout' => array(
+					'file'  => 'redirects-to-the-homepage-upon-logout/redirects-to-the-homepage-upon-logout.php',
+					'class' => 'Chout_AIO_Logout_Redirect',
+				),
+				'remove-wp-logo-from-admin-bar' => array(
+					'file'  => 'remove-wp-logo-from-admin-bar/remove-wp-logo-from-admin-bar.php',
+					'class' => 'Chout_AIO_Remove_WP_Logo_From_Admin_Bar',
+				),
+				'scroll-add-action' => array(
+					'file'  => 'scroll-add-action/scroll-add-action.php',
+					'class' => 'Chout_AIO_Scroll_Add_Action',
+					'configurable'    => true,
+					'menu_slug'       => 'chout-aio-scroll-add-action',
+				),
+				'scroll-progress-bar' => array(
+					'file'  => 'scroll-progress-bar/scroll-progress-bar.php',
+					'class' => 'Chout_AIO_Scroll_Progress_Bar',
+					'configurable'    => true,
+					'menu_slug'       => 'chout-aio-scroll-progress-bar',
+				),
+				'slick-custom' => array(
+					'file'  => 'slick-custom/slick-custom.php',
+					'class' => 'Chout_AIO_Slick_Custom',
+				),
+				'smooth-scrolling-for-anchor-links' => array(
+					'file'  => 'smooth-scrolling-for-anchor-links/smooth-scrolling-for-anchor-links.php',
+					'class' => 'Chout_AIO_Smooth_Scrolling',
+				),
+				'smooth-scroll-by-lenis' => array(
+					'file'  => 'smooth-scroll-by-lenis/smooth-scroll-by-lenis.php',
+					'class' => 'Chout_AIO_Smooth_Scroll_Lenis',
+				),
+			);
+		}
+
 		private static function feature_slugs() {
 			return array(
 				'keywords-everywhere',
@@ -324,10 +425,10 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 
 		public static function get_feature_status() {
 			$saved    = get_option( self::OPTION_FEATURES );
-			$features = self::features();
+			$files    = self::feature_files();
 			$status   = array();
 
-			foreach ( $features as $slug => $feature ) {
+			foreach ( $files as $slug => $file ) {
 				$status[ $slug ] = is_array( $saved ) && array_key_exists( $slug, $saved ) ? (bool) $saved[ $slug ] : false;
 			}
 
@@ -343,7 +444,7 @@ if ( ! class_exists( 'Chout_AIO' ) ) {
 		public static function load_enabled_features() {
 			$status = self::get_feature_status();
 
-			foreach ( self::features() as $slug => $feature ) {
+			foreach ( self::feature_files() as $slug => $feature ) {
 				if ( empty( $status[ $slug ] ) || empty( $feature['file'] ) ) {
 					continue;
 				}
