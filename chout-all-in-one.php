@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Chout - All in One
  * Description:       A single control panel for enabling small website features only when you need them.
- * Version:           1.1.9
+ * Version:           1.2.0
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            Chout
@@ -78,7 +78,7 @@ add_filter( 'plugin_row_meta', function( $links, $file ) use ( $chout_caio_updat
 
 if ( ! class_exists( 'Chout_AIO' ) ) {
 	final class Chout_AIO {
-		const VERSION         = '1.1.9';
+		const VERSION         = '1.2.0';
 		const OPTION_VERSION  = 'chout_aio_db_version';
 		const OPTION_FEATURES = 'chout_aio_features';
 		const MENU_SLUG       = 'chout-all-in-one';

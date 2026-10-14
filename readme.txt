@@ -4,7 +4,7 @@ Tags:               admin, effects, security, seo, style
 Requires at least:  5.2
 Tested up to:       7.1
 Requires PHP:       7.4
-Stable tag:         1.1.9
+Stable tag:         1.2.0
 License:            GPLv2 or later
 License URI:        https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +57,11 @@ No. All features are turned off by default so you can choose only what you need.
 Open the Chout AIO settings screen. When an enabled feature has its own settings, a Customize button appears next to it.
 
 == Changelog ==
+
+= 1.2.0 =
+
+* Fix: Prevented fatal error during WP-Cron execution by using direct file writing with LOCK_EX instead of WP_Filesystem in Block IPs.
+* Tweak: Optimized Block IPs cron scheduling to only register when the AIO Block IPs option is enabled, and automatically clear scheduled cron events when disabled.
 
 = 1.1.9 =
 
